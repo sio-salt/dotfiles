@@ -1,0 +1,11 @@
+{
+    "workspace.maxPreload": 500,
+    "workspace.library": [],
+    "diagnostics.enable": false,
+    "diagnostics.disable": [
+        "unused-local",
+        "lowercase-global",
+        "undefined-global"
+    ]
+}
+

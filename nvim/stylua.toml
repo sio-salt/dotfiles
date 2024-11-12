@@ -1,0 +1,24 @@
+# .stylua.toml
+
+# Set indentation to spaces and specify width
+indent_type = "Spaces"            # Options: "Spaces" or "Tabs"
+indent_width = 2                  # Indentation width in spaces
+
+# Line endings style
+line_endings = "Unix"             # Options: "Unix" or "Windows"
+
+# Maximum line width
+column_width = 80                 # Wrap lines at this width
+
+# Quote style
+quote_style = "AutoPreferSingle"  # Options: "AutoPreferDouble", "AutoPreferSingle", "ForceSingle", "ForceDouble"
+
+# Parentheses handling
+no_call_parentheses = false       # Avoids parentheses in simple calls
+
+# Collapses single-line statements
+collapse_simple_statement = "Always"  # Options: "Never", "FunctionOnly", "ConditionalOnly", "Always"
+
+# Sorts require statements with specific rules
+sort_requires = { enabled = true }   # Enables sorting for `require` statements
+
