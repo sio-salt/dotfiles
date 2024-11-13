@@ -79,11 +79,12 @@ check_repos_on_exit() {
 
 # Loop through each path in the array and check its status
 TARGET_REPO_PATHS=(
-    "/home/kato/10.projects_local/dotfiles/"
-    "/home/kato/10.projects_local/easyvec/"
-    "/home/kato/10.projects_local/molgeom/"
+    "/home/kato/10.git_repos/dotfiles/"
+    "/home/kato/10.git_repos/easyvec/"
+    "/home/kato/10.git_repos/molgeom/"
 )
 
 check_repos_on_start "${TARGET_REPO_PATHS[@]}"
 
 trap 'check_repos_on_exit "${TARGET_REPO_PATHS[@]}"' EXIT
+
