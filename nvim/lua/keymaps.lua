@@ -27,7 +27,7 @@ vim.keymap.set('n', '<C-w>h', function()
   end
 end)
 
-vim.keymap.set('n', '<leader>pr', function()
+vim.keymap.set('n', '<F5>', function()
   -- Save the file if it has been modified
   if vim.bo.modified then vim.cmd('write') end
 
