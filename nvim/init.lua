@@ -427,7 +427,11 @@ require('lazy').setup({
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         --   },
         -- },
-        -- pickers = {}
+        pickers = {
+          colorscheme = {
+            enable_preview = true,
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -488,6 +492,12 @@ require('lazy').setup({
         '<leader>sr',
         builtin.resume,
         { desc = '[S]earch [R]esume' }
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>sc',
+        builtin.colorscheme,
+        { desc = '[S]earch [C]olorscheme' }
       )
       vim.keymap.set(
         'n',
@@ -910,6 +920,7 @@ require('lazy').setup({
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         python = { 'ruff', 'black' },
+        bash = { 'beautysh' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
@@ -1058,6 +1069,7 @@ require('lazy').setup({
   { 'cocopon/iceberg.vim' },
   { 'AhmedAbdulrahman/aylin.vim' },
   { 'doums/darcula' },
+  { 'rebelot/kanagawa.nvim' },
   { 'ellisonleao/gruvbox.nvim' },
 
   -- Highlight todo, notes, etc in comments
@@ -1151,10 +1163,10 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
+  require('kickstart.plugins.indent_line'),
   -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
+  require('kickstart.plugins.autopairs'),
+  require('kickstart.plugins.neo-tree')
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`

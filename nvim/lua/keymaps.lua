@@ -1,11 +1,18 @@
 -- keymap configuration
 
+-- Ctrl+Shift+l
+-- map('n', '<cs-l>', [[<cmd>lua print('ctrl+shift+l')<cr>]], { noremap = true })
+
+vim.keymap.set('i', '<C-l>', '<Left>')
+vim.keymap.set('i', '<cs-l>', '<C-Left>')
+
 vim.keymap.set('n', 'S', '$')
 vim.keymap.set('n', 'ss', '^')
 
 vim.keymap.set('n', '<C-a>', 'ggVG')
 vim.keymap.set('n', '<C-Up>', '<C-a>')
 vim.keymap.set('n', '<C-Down>', '<C-x>')
+vim.keymap.set('n', '<c-e>', ':Neotree toggle <CR>')
 
 vim.keymap.set('n', '<leader>r', function()
   -- Save the file if it has been modified
