@@ -45,7 +45,7 @@ check_git_status() {
     echo -e "$STATUS: $REPO_PATH"
 
     # return 0 if up-to-date, else return
-    [ "$STATUS" = "${GREEN}UP-to-date${NC}" ]
+    [ "$STATUS" = "${GREEN}Up-to-date${NC}" ]
 }
 
 check_repos_on_start() {
