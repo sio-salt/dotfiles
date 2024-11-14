@@ -1072,6 +1072,7 @@ require('lazy').setup({
   { 'AhmedAbdulrahman/aylin.vim' },
   { 'doums/darcula' },
   { 'rebelot/kanagawa.nvim' },
+  { 'Mofiqul/vscode.nvim' },
   { 'ellisonleao/gruvbox.nvim' },
 
   -- Highlight todo, notes, etc in comments

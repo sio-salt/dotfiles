@@ -1,0 +1,27 @@
+alias up='z .. ; ls'
+alias upup='z ../.. ; ls'
+alias upupup='z ../../.. ; ls'
+alias upupupup='z ../../../.. ; ls'
+alias upupupupup='z ../../../../.. ; ls'
+alias upupupupupup='z ../../../../../.. ; ls'
+alias shellrestart='exec $SHELL -l'
+alias tarzip='tar -zcvf'
+alias venv='source $( git rev-parse --show-toplevel 2>/dev/null || echo "$HOME" )/.venv/bin/activate'
+
+alias exp='explorerfunc'
+alias clip.exe="/mnt/c/Windows/System32/clip.exe"
+Japanese_clip() {
+  iconv -t sjis | clip.exe
+}
+alias clip='Japanese_clip'
+
+function explorerfunc(){
+  if [ $# = 0 ]; then
+    explorer.exe .
+  elif [ $# = 1 ]; then
+    explorer.exe "$1"
+  else
+    echo "ERROR : too many arg"
+  fi
+}
+

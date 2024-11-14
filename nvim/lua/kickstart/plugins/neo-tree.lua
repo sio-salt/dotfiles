@@ -15,13 +15,14 @@ return {
   },
   opts = {
     filesystem = {
+      follow_current_file = {
+        enabled = false,
+      },
       window = {
         position = 'left',
         width = 30,
         mappings = {
           ['\\'] = 'close_window',
-          noremap = true,
-          nowait = true,
         },
       },
     },

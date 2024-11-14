@@ -9,23 +9,31 @@ vim.keymap.set('i', '<cs-l>', '<C-Left>')
 vim.keymap.set('n', '<C-a>', 'ggVG')
 vim.keymap.set('n', '<C-Up>', '<C-a>')
 vim.keymap.set('n', '<C-Down>', '<C-x>')
-vim.keymap.set('n', '<c-e>', ':Neotree toggle <CR>')
+vim.keymap.set('n', '<c-w>L', ':Neotree toggle <CR>')
+-- vim.keymap.set('n', '<c-e>', ':Neotree toggle <CR>')
+vim.keymap.set('n', '<C-e>', function()
+  if vim.bo.filetype == 'neo-tree' then
+    vim.cmd('Neotree close')
+  else
+    vim.cmd('Neotree focus')
+  end
+end, { noremap = true, silent = true })
 
--- loop window
 vim.keymap.set('n', '<C-w>l', function()
-  if vim.fn.winnr('l') ~= 0 then
-    vim.cmd('wincmd l')
-  else
-    vim.cmd('wincmd |')
-  end
-end)
+  local count = vim.v.count1
+  local current_win = vim.fn.winnr()
+  local total_wins = vim.fn.winnr('$')
+  local new_win = ((current_win - 1 + count) % total_wins) + 1
+  vim.cmd(new_win .. 'wincmd w')
+end, { noremap = true, silent = true })
+
 vim.keymap.set('n', '<C-w>h', function()
-  if vim.fn.winnr('h') ~= 0 then
-    vim.cmd('wincmd h')
-  else
-    vim.cmd('wincmd $')
-  end
-end)
+  local count = vim.v.count1
+  local current_win = vim.fn.winnr()
+  local total_wins = vim.fn.winnr('$')
+  local new_win = ((current_win - 1 - count + total_wins) % total_wins) + 1
+  vim.cmd(new_win .. 'wincmd w')
+end, { noremap = true, silent = true })
 
 vim.keymap.set('n', '<F5>', function()
   -- Save the file if it has been modified
@@ -49,7 +57,7 @@ vim.keymap.set('n', '<F5>', function()
   end
 end, { noremap = true, silent = true, desc = 'Run current file' })
 
-vim.keymap.set('v', '<C-c>', '+yy')
+vim.keymap.set('v', '<C-c>', '"+y')
 
 vim.keymap.set({ 'n', 'v' }, 'S', '$')
 vim.keymap.set({ 'n', 'v' }, 'ss', '^')
