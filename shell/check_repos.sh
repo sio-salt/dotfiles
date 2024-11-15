@@ -68,6 +68,7 @@ check_repos_on_exit() {
         fi
     else
         echo -e "${GREEN}No errors, exiting.${NC}"
+        sleep 3
     fi
 }
 
