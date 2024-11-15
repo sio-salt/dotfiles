@@ -35,26 +35,53 @@ vim.keymap.set('n', '<C-w>h', function()
   vim.cmd(new_win .. 'wincmd w')
 end, { noremap = true, silent = true })
 
+-- vim.keymap.set('n', '<F5>', function()
+--   -- Save the file if it has been modified
+--   if vim.bo.modified then vim.cmd('write') end
+--
+--   -- Get the file type
+--   local filetype = vim.bo.filetype
+--   local filename = vim.fn.shellescape(vim.fn.expand('%'))
+--
+--   -- Determine the execution command based on the file type
+--   if filetype == 'python' then
+--     vim.cmd('!' .. 'python ' .. filename)
+--   elseif filetype == 'javascript' then
+--     vim.cmd('!' .. 'node ' .. filename)
+--   elseif filetype == 'ruby' then
+--     vim.cmd('!' .. 'ruby ' .. filename)
+--   elseif filetype == 'sh' then
+--     vim.cmd('!' .. 'bash ' .. filename)
+--   else
+--     print('Execute command is not defined for this file type: ' .. filetype)
+--   end
+-- end, { noremap = true, silent = true, desc = 'Run current file' })
+
 vim.keymap.set('n', '<F5>', function()
   -- Save the file if it has been modified
   if vim.bo.modified then vim.cmd('write') end
 
   -- Get the file type
   local filetype = vim.bo.filetype
-  local filename = vim.fn.shellescape(vim.fn.expand('%'))
+  local filename = vim.fn.expand('%')
 
   -- Determine the execution command based on the file type
+  local command = nil
   if filetype == 'python' then
-    vim.cmd('!' .. 'python ' .. filename)
+    command = 'python ' .. vim.fn.shellescape(filename)
   elseif filetype == 'javascript' then
-    vim.cmd('!' .. 'node ' .. filename)
+    command = 'node ' .. vim.fn.shellescape(filename)
   elseif filetype == 'ruby' then
-    vim.cmd('!' .. 'ruby ' .. filename)
+    command = 'ruby ' .. vim.fn.shellescape(filename)
   elseif filetype == 'sh' then
-    vim.cmd('!' .. 'bash ' .. filename)
+    command = 'bash ' .. vim.fn.shellescape(filename)
   else
     print('Execute command is not defined for this file type: ' .. filetype)
+    return
   end
+
+  -- Open a terminal and execute the command
+  if command then vim.cmd('split | terminal ' .. command) end
 end, { noremap = true, silent = true, desc = 'Run current file' })
 
 vim.keymap.set('v', '<C-c>', '"+y')
