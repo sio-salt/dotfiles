@@ -11,20 +11,15 @@ check_git_status() {
     local STATUS=""
 
     if [ -d "$REPO_PATH" ]; then
-        # cd "$REPO_PATH" || return 1
-        # temporarily change directory
-        pushd "$REPO_PATH" >/dev/null || return 1
+        git -C "$REPO_PATH" fetch >/dev/null 2>&1
 
-        git fetch >/dev/null 2>&1
-
-        if ! git diff --quiet || ! git diff --cached --quiet; then
+        if ! git -C "$REPO_PATH" diff --quiet || ! git -C "$REPO_PATH" diff --cached --quiet; then
             STATUS="${RED}Uncommitted changes${NC}"
         else
-
             # Compare local and remote states
-            LOCAL=$(git rev-parse @)
-            REMOTE=$(git rev-parse @{u})
-            BASE=$(git merge-base @ @{u})
+            LOCAL=$(git -C "$REPO_PATH" rev-parse @)
+            REMOTE=$(git -C "$REPO_PATH" rev-parse @{u})
+            BASE=$(git -C "$REPO_PATH" merge-base @ @{u})
 
             if [ "$LOCAL" = "$REMOTE" ]; then
                 STATUS="${GREEN}Up-to-date${NC}"
@@ -36,15 +31,13 @@ check_git_status() {
                 STATUS="${RED}Diverged${NC}"
             fi
         fi
-        # return to original dir
-        popd >/dev/null
     else
         STATUS="${RED}Path not found${NC}"
     fi
 
     echo -e "$STATUS: $REPO_PATH"
 
-    # return 0 if up-to-date, else return
+    # Return 0 if up-to-date, else return non-zero
     [ "$STATUS" = "${GREEN}Up-to-date${NC}" ]
 }
 
@@ -55,6 +48,7 @@ check_repos_on_start() {
         check_git_status "$REPO_PATH"
     done
 }
+
 check_repos_on_exit() {
     local REPO_PATHS=("$@")
     local ERROR_FOUND=0
@@ -87,4 +81,3 @@ TARGET_REPO_PATHS=(
 check_repos_on_start "${TARGET_REPO_PATHS[@]}"
 
 trap 'check_repos_on_exit "${TARGET_REPO_PATHS[@]}"' EXIT
-
