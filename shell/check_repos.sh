@@ -44,6 +44,11 @@ check_git_status() {
 check_repos_on_start() {
     local REPO_PATHS=("$@")
 
+    read -p "Do you want to check repos? (y/n): " choice
+    if [ "$choice" != "y" ]; then
+        return 0
+    fi
+
     for REPO_PATH in "${REPO_PATHS[@]}"; do
         check_git_status "$REPO_PATH"
     done
