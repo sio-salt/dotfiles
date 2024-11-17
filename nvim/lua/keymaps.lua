@@ -91,7 +91,12 @@ vim.keymap.set({ 'n', 'v' }, 'ss', '^')
 vim.keymap.set({ 'n', 'v' }, 'x', '"_x')
 vim.keymap.set({ 'n', 'v' }, '<leader>p', '"0p')
 vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d')
-vim.keymap.set({ 'n', 'v' }, '<leader>m', '%')
+vim.keymap.set(
+  { 'n', 'v' },
+  '<leader>m',
+  '%',
+  { desc = '[J]ump to [M]atching braces' }
+)
 
 -- Map <F2> to toggle 'mouse' setting
 vim.keymap.set({ 'i', 'n', 'v' }, '<F2>', function()

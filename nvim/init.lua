@@ -165,7 +165,7 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 5
+vim.opt.scrolloff = 8
 
 -- Append "S" to the shortmess option to show a message when search reaches the top or bottom
 vim.opt.shortmess:append('S')
@@ -497,7 +497,13 @@ require('lazy').setup({
         'n',
         '<leader>sc',
         builtin.colorscheme,
-        { desc = '[S]earch [C]olorscheme' }
+        { desc = '[S]earch [T]heme (colorscheme)' }
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>sc',
+        builtin.commands,
+        { desc = '[S]earch [C]ommand' }
       )
       vim.keymap.set(
         'n',
@@ -1040,6 +1046,67 @@ require('lazy').setup({
         },
       })
     end,
+  },
+
+  -- my plugins and config
+  -- {'akinsho/toggleterm.nvim', version = "*", config = true}
+  -- or
+  {
+    'akinsho/toggleterm.nvim',
+    version = '*',
+    opts = {--[[ things you want to change go here]]
+    },
+    config = function()
+      require('toggleterm').setup({
+        size = 20,
+        open_mapping = [[<C-\>]],
+        hide_numbers = true,
+        shade_filetypes = {},
+        shade_terminals = true,
+        shading_factor = 2,
+        start_in_insert = true,
+        insert_mapping = true,
+        persistent_size = true,
+        direction = 'float',
+        close_on_exit = true,
+        shell = vim.o.shell,
+        float_opts = {
+          border = 'curved',
+          winblend = 0,
+          highlights = {
+            border = 'Normal',
+            background = 'Normal',
+          },
+        },
+      })
+    end,
+  },
+
+  {
+    'chipsenkbeil/distant.nvim',
+    branch = 'v0.3',
+    config = function() require('distant'):setup() end,
+  },
+
+  {
+    'amitds1997/remote-nvim.nvim',
+    version = '*', -- Pin to GitHub releases
+    dependencies = {
+      'nvim-lua/plenary.nvim', -- For standard functions
+      'MunifTanjim/nui.nvim', -- To build the plugin UI
+      'nvim-telescope/telescope.nvim', -- For picking b/w different remote methods
+    },
+    config = function()
+      require('remote-nvim').setup({
+        ssh_config = {
+          ssh_config_file_paths = { '$HOME/.ssh/config' },
+        },
+      })
+    end,
+  },
+
+  {
+    'dstein64/vim-startuptime',
   },
 
   { -- You can easily change to a different colorscheme.
