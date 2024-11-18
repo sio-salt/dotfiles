@@ -1049,8 +1049,11 @@ require('lazy').setup({
   },
 
   -- my plugins and config
-  -- {'akinsho/toggleterm.nvim', version = "*", config = true}
-  -- or
+  {
+    'github/copilot.vim',
+    lazy = false,
+  },
+
   {
     'akinsho/toggleterm.nvim',
     version = '*',
