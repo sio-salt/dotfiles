@@ -61,16 +61,21 @@ end, { noremap = true, silent = true, desc = 'Run current file' })
 
 -- copilot toggle
 local copilot_on = false
-vim.keymap.set('n', '<leader>tc', function()
-  if copilot_on then
-    vim.cmd('Copilot disable')
-    print('Copilot OFF')
-  else
-    vim.cmd('Copilot enable')
-    print('Copilot ON')
-  end
-  copilot_on = not copilot_on
-end, { noremap = true, silent = true, desc = '[T]oggle [C]opilot' })
+vim.keymap.set(
+  'n',
+  '<leader>tcs',
+  function()
+    if copilot_on then
+      vim.cmd('Copilot disable')
+      print('Copilot OFF')
+    else
+      vim.cmd('Copilot enable')
+      print('Copilot ON')
+    end
+    copilot_on = not copilot_on
+  end,
+  { noremap = true, silent = true, desc = '[T]oggle [C]opilot [S]uggestion' }
+)
 
 vim.keymap.set('v', '<C-c>', '"+y')
 
@@ -84,6 +89,13 @@ vim.keymap.set(
   '<leader>m',
   '%',
   { desc = '[J]ump to [M]atching braces' }
+)
+
+vim.keymap.set(
+  { 'n', 'v' },
+  '<leader>tcc',
+  ':CopilotChatToggle<CR>',
+  { noremap = true, silent = true, desc = '[T]oggle [C]opilot [C]hat' }
 )
 
 -- Map <F2> to toggle 'mouse' setting

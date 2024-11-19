@@ -821,7 +821,7 @@ require('lazy').setup({
               workspace = {
                 logLevel = 'trace',
               },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+              -- You can Toggle below to ignore Lua_LS's noisy `missing-fields` warnings
               -- diagnostics = { disable = { 'missing-fields' } },
             },
           },
@@ -1053,12 +1053,19 @@ require('lazy').setup({
     'github/copilot.vim',
     lazy = false,
   },
+  -- {
+  --   'zbirenbaum/copilot.lua',
+  --   cmd = 'Copilot',
+  --   event = 'InsertEnter',
+  --   config = function() require('copilot').setup({}) end,
+  -- },
 
   {
     'CopilotC-Nvim/CopilotChat.nvim',
     branch = 'canary',
     dependencies = {
-      { 'github/copilot.vim' }, -- or zbirenbaum/copilot.lua
+      -- { 'github/copilot.vim' }, -- or zbirenbaum/copilot.lua
+      { 'zbirenbaum/copilot.lua' },
       { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper
     },
     build = 'make tiktoken', -- Only on MacOS or Linux
@@ -1066,6 +1073,32 @@ require('lazy').setup({
       -- See Configuration section for options
     },
     -- See Commands section for default commands if you want to lazy load on them
+  },
+
+  -- require('copilot-chat').setup({
+  --   highlight_headers = true,
+  --   separator = '---',
+  --   error_header = '> [!ERROR] Error',
+  --   -- rest of your config
+  -- }),
+
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'echasnovski/mini.nvim',
+    }, -- if you use the mini.nvim suite
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {},
+    config = function()
+      require('render-markdown').setup({
+        -- Registers copilot-chat filetype for markdown rendering
+        file_types = { 'markdown', 'copilot-chat' },
+      })
+    end,
   },
 
   {
@@ -1202,6 +1235,7 @@ require('lazy').setup({
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
+
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
