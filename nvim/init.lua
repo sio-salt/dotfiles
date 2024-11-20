@@ -979,11 +979,42 @@ require('lazy').setup({
       local luasnip = require('luasnip')
       luasnip.config.setup({})
 
+      -- cmp.autocomplete_enabled = true
+
+      -- function cmp.toggle_autocomplete()
+      --   cmp.autocomplete_enabled = not cmp.autocomplete_enabled
+      --   print(
+      --     'Autocomplete is now '
+      --       .. (cmp.autocomplete_enabled and 'enabled' or 'disabled')
+      --   )
+      -- end
+      -- function cmp.toggle_autocomplete()
+      --   cmp.auto_complete_enabled = not cmp.auto_complete_enabled
+      --   cmp.setup({
+      --     completion = {
+      --       completeopt = 'menu,menuone,noinsert',
+      --       autocomplete = cmp.auto_complete_enabled,
+      --     --   autocomplete = cmp.auto_complete_enabled and {
+      --     --     cmp.TriggerEvent.TextChanged,
+      --     --   } or false,
+      --     },
+      --   })
+      --   if cmp.auto_complete_enabled then
+      --     print('Auto-completion enabled')
+      --   else
+      --     print('Auto-completion disabled')
+      --   end
+      -- end
+      --
       cmp.setup({
         snippet = {
           expand = function(args) luasnip.lsp_expand(args.body) end,
         },
-        completion = { completeopt = 'menu,menuone,noinsert' },
+        completion = {
+          completeopt = 'menu,menuone,noinsert',
+          -- autocomplete = cmp.autocomplete_enabled,
+          autocomplete = false,
+        },
 
         -- For an understanding of why these mappings were
         -- chosen, you will need to read `:help ins-completion`
@@ -1006,9 +1037,28 @@ require('lazy').setup({
 
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
-          --['<CR>'] = cmp.mapping.confirm { select = true },
-          --['<Tab>'] = cmp.mapping.select_next_item(),
-          --['<S-Tab>'] = cmp.mapping.select_prev_item(),
+          -- ['<CR>'] = cmp.mapping.confirm({ select = true }),
+          -- ['<Tab>'] = cmp.mapping.select_next_item(),
+          -- ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+
+          -- ['<Tab>'] = function(fallback)
+          --   if cmp.visible() then
+          --     cmp.select_next_item() -- nvim-cmpの次の候補を選択
+          --   elseif require('copilot.suggestion').is_visible() then
+          --     require('copilot.suggestion').accept() -- Copilotを確定
+          --   else
+          --     fallback() -- normal Tab behavior
+          --   end
+          -- end,
+          -- ['<S-Tab>'] = function(fallback)
+          --   if cmp.visible() then
+          --     cmp.select_prev_item()
+          --   else
+          --     fallback()
+          --   end
+          -- end,
+          -- -- Enterキto accept
+          -- ['<CR>'] = cmp.mapping.confirm({ select = true }),
 
           -- Manually trigger a completion from nvim-cmp.
           --  Generally you don't need this, because nvim-cmp will display
@@ -1164,6 +1214,8 @@ require('lazy').setup({
   --   error_header = '> [!ERROR] Error',
   --   -- rest of your config
   -- }),
+
+  { 'matze/vim-move' },
 
   {
     'MeanderingProgrammer/render-markdown.nvim',

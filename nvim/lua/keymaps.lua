@@ -3,8 +3,8 @@
 -- Ctrl+Shift+l
 -- map('n', '<cs-l>', [[<cmd>lua print('ctrl+shift+l')<cr>]], { noremap = true })
 
-vim.keymap.set('i', '<C-l>', '<Left>')
-vim.keymap.set('i', '<cs-l>', '<C-Left>')
+-- vim.keymap.set('i', '<C-l>', '<Left>')
+-- vim.keymap.set('i', '<cs-l>', '<C-Left>')
 
 vim.keymap.set('n', '<C-a>', 'ggVG')
 vim.keymap.set('n', '<C-Up>', '<C-a>')
@@ -84,6 +84,15 @@ vim.keymap.set({ 'n', 'v' }, 'ss', '^')
 vim.keymap.set({ 'n', 'v' }, 'x', '"_x')
 vim.keymap.set({ 'n', 'v' }, '<leader>p', '"0p')
 vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d')
+
+-- toggle auto suggestion
+-- vim.keymap.set(
+--   { 'n', 'v' },
+--   '<leader>tas',
+--   function() require('cmp').toggle_autocomplete() end,
+--   { desc = '[T]oggle [A]uto [S]uggestion' }
+-- )
+
 vim.keymap.set(
   { 'n', 'v' },
   '<leader>m',
