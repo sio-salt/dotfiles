@@ -1013,7 +1013,7 @@ require('lazy').setup({
         completion = {
           completeopt = 'menu,menuone,noinsert',
           -- autocomplete = cmp.autocomplete_enabled,
-          autocomplete = false,
+          -- autocomplete = false,
         },
 
         -- For an understanding of why these mappings were
