@@ -496,7 +496,7 @@ require('lazy').setup({
       )
       vim.keymap.set(
         'n',
-        '<leader>sc',
+        '<leader>st',
         builtin.colorscheme,
         { desc = '[S]earch [T]heme (colorscheme)' }
       )
