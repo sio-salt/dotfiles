@@ -1205,6 +1205,16 @@ require('lazy').setup({
     opts = {
       -- See Configuration section for options
     },
+    config = function()
+      require('CopilotChat').setup({
+        mappings = {
+          complete = {
+            -- insert = '<Tab>',   -- default
+            insert = '<C-j>',
+          },
+        },
+      })
+    end,
     -- See Commands section for default commands if you want to lazy load on them
   },
 
