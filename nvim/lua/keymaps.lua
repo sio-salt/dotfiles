@@ -60,7 +60,7 @@ vim.keymap.set('n', '<F5>', function()
 end, { noremap = true, silent = true, desc = 'Run current file' })
 
 -- copilot toggle
-local copilot_on = false
+local copilot_on = true
 vim.keymap.set(
   'n',
   '<leader>tcs',
