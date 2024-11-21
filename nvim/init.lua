@@ -842,7 +842,6 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
-        'ruff',
         'black',
         'shfmt',
       })
@@ -1315,7 +1314,8 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme('tokyonight-moon')
+      -- vim.cmd.colorscheme('tokyonight-moon')
+      vim.cmd.colorscheme('kanagawa')
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi('Comment gui=none')
