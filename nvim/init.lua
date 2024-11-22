@@ -690,12 +690,12 @@ require('lazy').setup({
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          -- map(
-          --   '<leader>ca',
-          --   vim.lsp.buf.code_action,
-          --   '[C]ode [A]ction',
-          --   { 'n', 'x' }
-          -- )
+          map(
+            '<leader>ca',
+            vim.lsp.buf.code_action,
+            '[C]ode [A]ction',
+            { 'n', 'x' }
+          )
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
@@ -1181,6 +1181,16 @@ require('lazy').setup({
   },
 
   -- my plugins and config
+  -- {
+  --   'nvimdev/lspsaga.nvim',
+  --   config = function() require('lspsaga').setup({}) end,
+  --   dependencies = {
+  --     'nvim-treesitter/nvim-treesitter', -- optional
+  --     'nvim-tree/nvim-web-devicons', -- optional
+  --   },
+  -- },
+  -- require('lspsaga').init_lsp_saga(),
+
   {
     'github/copilot.vim',
     lazy = false,
