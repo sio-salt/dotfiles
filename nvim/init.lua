@@ -810,6 +810,14 @@ require('lazy').setup({
         -- ts_ls = {},
         --
 
+        pylsp = {
+          plugins = {
+            pycodestyle = {
+              maxLineLength = 100,
+            },
+          },
+        },
+
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
@@ -1004,7 +1012,7 @@ require('lazy').setup({
       --     print('Auto-completion disabled')
       --   end
       -- end
-      --
+
       cmp.setup({
         snippet = {
           expand = function(args) luasnip.lsp_expand(args.body) end,
