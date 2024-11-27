@@ -44,10 +44,10 @@ check_git_status() {
 check_repos_on_start() {
     local REPO_PATHS=("$@")
 
-    read -p "Do you want to check repos? (y/n): " choice
-    if [ "$choice" != "y" ]; then
-        return 0
-    fi
+    # read -p "Do you want to check repos? (y/n): " choice
+    # if [ "$choice" != "y" ]; then
+    #     return 0
+    # fi
 
     for REPO_PATH in "${REPO_PATHS[@]}"; do
         check_git_status "$REPO_PATH"
@@ -85,6 +85,7 @@ TARGET_REPO_PATHS=(
     "/home/kato/10.git_repos/testing_repo/"
 )
 
-check_repos_on_start "${TARGET_REPO_PATHS[@]}"
+# check_repos_on_start "${TARGET_REPO_PATHS[@]}"
+alias repocheck='check_repos_on_start "${TARGET_REPO_PATHS[@]}"'
 
 trap 'check_repos_on_exit "${TARGET_REPO_PATHS[@]}"' EXIT
