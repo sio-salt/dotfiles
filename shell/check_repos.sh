@@ -86,6 +86,6 @@ TARGET_REPO_PATHS=(
 )
 
 # check_repos_on_start "${TARGET_REPO_PATHS[@]}"
-alias repocheck='check_repos_on_start "${TARGET_REPO_PATHS[@]}"'
+alias Repocheck='check_repos_on_start "${TARGET_REPO_PATHS[@]}"'
 
 trap 'check_repos_on_exit "${TARGET_REPO_PATHS[@]}"' EXIT
