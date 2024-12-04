@@ -638,11 +638,31 @@ require('lazy').setup({
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-t>.
-          map(
-            'gd',
-            require('telescope.builtin').lsp_definitions,
-            '[G]oto [D]efinition'
-          )
+          -- map(
+          --   'gd',
+          --   require('telescope.builtin').lsp_definitions,
+          --   '[G]oto [D]efinition'
+          -- )
+          map('gd', function()
+            local bufnr = vim.api.nvim_get_current_buf()
+            local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+            local supports_definition = false
+
+            for _, client in ipairs(clients) do
+              if client.server_capabilities.definitionProvider then
+                supports_definition = true
+                break
+              end
+            end
+
+            if supports_definition then
+              -- Use Telescope's LSP definitions
+              require('telescope.builtin').lsp_definitions()
+            else
+              -- Fallback to Vim's default 'gd' behavior
+              vim.api.nvim_command('normal! gd')
+            end
+          end, '[G]oto [D]efinition')
 
           -- Find references for the word under your cursor.
           map(
