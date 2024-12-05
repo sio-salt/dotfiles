@@ -1220,6 +1220,10 @@ require('lazy').setup({
   -- require('lspsaga').init_lsp_saga(),
 
   {
+    'nvim-tree/nvim-web-devicons',
+  },
+
+  {
     'github/copilot.vim',
     lazy = false,
   },
