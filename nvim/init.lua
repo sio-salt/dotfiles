@@ -638,11 +638,31 @@ require('lazy').setup({
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-t>.
-          map(
-            'gd',
-            require('telescope.builtin').lsp_definitions,
-            '[G]oto [D]efinition'
-          )
+          -- map(
+          --   'gd',
+          --   require('telescope.builtin').lsp_definitions,
+          --   '[G]oto [D]efinition'
+          -- )
+          map('gd', function()
+            local bufnr = vim.api.nvim_get_current_buf()
+            local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+            local supports_definition = false
+
+            for _, client in ipairs(clients) do
+              if client.server_capabilities.definitionProvider then
+                supports_definition = true
+                break
+              end
+            end
+
+            if supports_definition then
+              -- Use Telescope's LSP definitions
+              require('telescope.builtin').lsp_definitions()
+            else
+              -- Fallback to Vim's default 'gd' behavior
+              vim.api.nvim_command('normal! gd')
+            end
+          end, '[G]oto [D]efinition')
 
           -- Find references for the word under your cursor.
           map(
@@ -1236,6 +1256,10 @@ require('lazy').setup({
   -- require('lspsaga').init_lsp_saga(),
 
   {
+    'nvim-tree/nvim-web-devicons',
+  },
+
+  {
     'github/copilot.vim',
     lazy = false,
   },
@@ -1369,11 +1393,21 @@ require('lazy').setup({
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       -- vim.cmd.colorscheme('tokyonight-moon')
-      vim.cmd.colorscheme('kanagawa')
+      -- vim.cmd.colorscheme('kanagawa')
+      vim.cmd.colorscheme('catppuccin')
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi('Comment gui=none')
     end,
+    -- config = function()
+    --   require('tokyonight').setup({
+    --     transparent = true,
+    --     styles = {
+    --       sidebars = 'transparent',
+    --       floats = 'transparent',
+    --     },
+    --   }),
+    -- end
   },
 
   { 'jacoborus/tender.vim' },
@@ -1390,6 +1424,18 @@ require('lazy').setup({
   { 'rebelot/kanagawa.nvim' },
   { 'Mofiqul/vscode.nvim' },
   { 'ellisonleao/gruvbox.nvim' },
+  { 'catppuccin/nvim' },
+  -- require('catppuccin').setup({
+  --   flavour = 'mocha',
+  --   color_overrides = {
+  --     mocha = {
+  --       base = '#12121a',
+  --       mantle = '#12121a',
+  --       crust = '#12121a',
+  --     },
+  --   },
+  --   transparent_background = true,
+  -- }),
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
