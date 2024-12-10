@@ -816,7 +816,7 @@ require('lazy').setup({
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-      local home = os.getenv("HOME")
+      local home = os.getenv('HOME')
 
       local servers = {
         -- clangd = {},
@@ -831,7 +831,6 @@ require('lazy').setup({
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
         --
-
 
         pylsp = {
           plugins = {
