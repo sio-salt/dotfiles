@@ -432,6 +432,9 @@ require('lazy').setup({
           colorscheme = {
             enable_preview = true,
           },
+          find_files = {
+            no_ignore = true,
+          },
         },
         extensions = {
           ['ui-select'] = {
