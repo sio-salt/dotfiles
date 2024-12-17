@@ -648,7 +648,7 @@ require('lazy').setup({
           -- )
           map('gd', function()
             local bufnr = vim.api.nvim_get_current_buf()
-            local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+            local clients = vim.lsp.get_clients({ bufnr = bufnr })
             local supports_definition = false
 
             for _, client in ipairs(clients) do
