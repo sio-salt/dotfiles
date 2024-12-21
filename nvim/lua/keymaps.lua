@@ -6,8 +6,8 @@
 -- vim.keymap.set('i', '<C-l>', '<Left>')
 -- vim.keymap.set('i', '<cs-l>', '<C-Left>')
 
-vim.keymap.set('n', 'gj', 'j')
-vim.keymap.set('n', 'gk', 'k')
+vim.keymap.set('n', 'j', 'gj')
+vim.keymap.set('n', 'k', 'gk')
 vim.keymap.set('n', '<C-a>', 'ggVG')
 vim.keymap.set('n', '<c-w>L', ':Neotree toggle <CR>')
 -- vim.keymap.set('n', '<c-e>', ':Neotree toggle <CR>')
