@@ -83,6 +83,7 @@ TARGET_REPO_PATHS=(
     "/home/kato/10.git_repos/easyvec/"
     "/home/kato/10.git_repos/molgeom/"
     "/home/kato/10.git_repos/testing_repo/"
+    "/home/kato/10.git_repos/optimize_test/"
 )
 
 # check_repos_on_start "${TARGET_REPO_PATHS[@]}"
