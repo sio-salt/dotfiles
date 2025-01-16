@@ -80,7 +80,6 @@ check_repos_on_exit() {
 # Loop through each path in the array and check its status
 TARGET_REPO_PATHS=(
     "/home/kato/10.git_repos/dotfiles/"
-    "/home/kato/10.git_repos/easyvec/"
     "/home/kato/10.git_repos/molgeom/"
     "/home/kato/10.git_repos/testing_repo/"
     "/home/kato/10.git_repos/optimize_test/"

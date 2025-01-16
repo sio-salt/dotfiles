@@ -1405,11 +1405,9 @@ require('lazy').setup({
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       -- vim.cmd.colorscheme('tokyonight-moon')
-      -- vim.cmd.colorscheme('kanagawa')
-      vim.cmd.colorscheme('catppuccin')
 
       -- You can configure highlights by doing something like:
-      vim.cmd.hi('Comment gui=none')
+      -- vim.cmd.hi('Comment gui=none')
     end,
     -- config = function()
     --   require('tokyonight').setup({
@@ -1436,18 +1434,26 @@ require('lazy').setup({
   { 'rebelot/kanagawa.nvim' },
   { 'Mofiqul/vscode.nvim' },
   { 'ellisonleao/gruvbox.nvim' },
-  { 'catppuccin/nvim' },
-  -- require('catppuccin').setup({
-  --   flavour = 'mocha',
-  --   color_overrides = {
-  --     mocha = {
-  --       base = '#12121a',
-  --       mantle = '#12121a',
-  --       crust = '#12121a',
-  --     },
-  --   },
-  --   transparent_background = true,
-  -- }),
+  {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    opts = {
+      flavour = 'mocha',
+      -- color_overrides = {
+      --   mocha = {
+      --     base = '#12121a',
+      --     mantle = '#12121a',
+      --     crust = '#12121a',
+      --   },
+      -- },
+      transparent_background = true,
+    },
+    priority = 1100,
+    config = function()
+      vim.cmd.colorscheme('catppuccin')
+      -- vim.cmd.hi('Comment gui=none')
+    end,
+  },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
