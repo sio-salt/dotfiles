@@ -6,7 +6,25 @@ alias upupupupup='z ../../../../.. ; ls'
 alias upupupupupup='z ../../../../../.. ; ls'
 alias shellrestart='exec $SHELL -l'
 alias tarzip='tar -zcvf'
-alias venv='source $( git rev-parse --show-toplevel 2>/dev/null || echo "$HOME" )/.venv/bin/activate'
+
+source_most_common_ansestor_venv() {
+  is_in_git_repo=$( git rev-parse --is-inside-work-tree 2>/dev/null )
+  home_venv_exists=$( ls "$HOME/.venv/" 2>/dev/null )
+  if [ "$is_in_git_repo" = "true" ]; then
+    repo_root=$( git rev-parse --show-toplevel )
+    repo_venv_exists=$( ls "$repo_root/.venv/" 2>/dev/null )
+    if [ "$repo_venv_exists" != "" ]; then
+      source "$repo_root/.venv/bin/activate"
+      return
+    fi
+  fi
+  if [ "$home_venv_exists" != "" ]; then
+    source "$HOME/.venv/bin/activate"
+  else
+    echo "ERROR : .venv not found"
+  fi
+}
+alias venv='source_most_common_ansestor_venv'
 
 alias exp='explorerfunc'
 alias clip.exe="/mnt/c/Windows/System32/clip.exe"
@@ -25,3 +43,70 @@ function explorerfunc(){
   fi
 }
 
+function explorerfunc(){
+  if [ $# = 0 ]; then
+    explorer.exe .
+  elif [ $# = 1 ]; then
+    explorer.exe "$1"
+  else
+    echo "ERROR : too many arg"
+  fi
+}
+
+cdexplorer(){
+  expdir="$1"
+  if [ "$expdir" = "" ]; then
+    cd ~
+  fi
+  drive=${expdir:0:2}
+  #echo $drive
+
+  cdg=''
+  if [ "$drive" = "C:" ]; then
+    cdg=c
+  elif [ "$drive" = "D:" ]; then
+    cdg=d
+  elif [ "$drive" = "G:" ]; then
+    cdg=g
+  else
+    echo "ERROR : unknown drive"
+  fi
+
+  cd $(echo "$expdir" | sed 's:\\:/:g' | sed "s|$drive|/mnt/$cdg|g")
+  result=$?
+  if [ $result = 0 ]; then
+    :
+  else
+    echo "ERROR"
+  fi
+}
+clexplorer(){
+  expdir="$1"
+  if [ "$expdir" = "" ]; then
+    cd ~
+  fi
+  drive=${expdir:0:2}
+
+  cdg=''
+  if [ "$drive" = "C:" ]; then
+    cdg=c
+  elif [ "$drive" = "D:" ]; then
+    cdg=d
+  elif [ "$drive" = "G:" ]; then
+    cdg=g
+  else
+    echo "ERROR : unknown drive"
+  fi
+
+  cd $(echo "$expdir" | sed 's:\\:/:g' | sed "s|$drive|/mnt/$cdg|g")
+  result=$?
+  if [ $result = 0 ]; then
+    #echo $result
+    ls
+  else
+    echo "ERROR"
+  fi
+}
+
+alias cdx=cdexplorer
+alias clx=clexplorer
