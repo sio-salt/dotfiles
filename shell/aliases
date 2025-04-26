@@ -26,6 +26,26 @@ source_most_common_ansestor_venv() {
 }
 alias venv='source_most_common_ansestor_venv'
 
+function find_activate_venv() {
+  local current_dir=$(pwd)
+  if [[ "$current_dir" != "$HOME"* ]]; then
+    echo "Error: Current directory is not under $HOME. Aborting."
+    return 1
+  fi
+  while [ "$current_dir" != $(dirname "$HOME") ] && [ "$current_dir" != "/" ]; do
+    for dir in "$current_dir"/.*/ "$current_dir"/*/; do
+      if [ -d "$dir" ] && [ -f "$dir/bin/activate" ]; then
+        source "$dir/bin/activate"
+        echo "Python venv found '$dir' and sourced"
+        return 0
+      fi
+    done
+    current_dir=$(dirname "$current_dir")
+  done
+  echo "No Python venv found"
+}
+alias venv=find_activate_venv
+
 alias exp='explorerfunc'
 alias clip.exe="/mnt/c/Windows/System32/clip.exe"
 Japanese_clip() {
