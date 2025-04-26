@@ -46,6 +46,59 @@ function find_activate_venv() {
 }
 alias venv=find_activate_venv
 
+find_activate_venv2() {
+    local dir="$PWD"
+    local home_top="$(dirname "$HOME")"
+
+    [[ $dir != "$HOME"* ]] && {
+        echo "Not under \$HOME"
+        return 1
+    }
+
+    shopt -s nullglob # Unmatched globs vanish
+
+    while [[ $dir != "$home_top" && $dir != / ]]; do
+        local -a venvs=()
+
+        # Collect candidate venv directories in this level only
+        for d in "$dir"/*/ "$dir"/.[!.]*/; do
+            [[ -f $d/bin/activate ]] && venvs+=("${d%/}")
+        done
+
+        case ${#venvs[@]} in
+        0)
+            dir=$(dirname "$dir")
+            continue
+            ;; # nothing here ─ go up
+        1)
+            source "${venvs[0]}/bin/activate" # exactly one ─ auto-activate
+            echo "Activated: ${venvs[0]}"
+            return 0
+            ;;
+        *) # multiple ─ ask
+            echo "Select virtual environment in '$dir':"
+            select v in "${venvs[@]}" "Cancel"; do
+                ((REPLY == ${#venvs[@]} + 1)) && {
+                    echo "Cancelled."
+                    return 1
+                }
+                if [[ $REPLY =~ ^[0-9]+$ && $REPLY -ge 1 && $REPLY -le ${#venvs[@]} ]]; then
+                    source "${venvs[REPLY - 1]}/bin/activate"
+                    echo "Activated: ${venvs[REPLY - 1]}"
+                    return 0
+                fi
+                echo "Invalid choice."
+            done
+            ;;
+        esac
+    done
+
+    echo "No Python venv found"
+    return 1
+}
+alias venv=find_activate_venv2
+
+
 alias exp='explorerfunc'
 alias clip.exe="/mnt/c/Windows/System32/clip.exe"
 Japanese_clip() {
