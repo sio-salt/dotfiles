@@ -1,110 +1,162 @@
-alias up='z .. ; ls'
-alias upup='z ../.. ; ls'
-alias upupup='z ../../.. ; ls'
-alias upupupup='z ../../../.. ; ls'
-alias upupupupup='z ../../../../.. ; ls'
-alias upupupupupup='z ../../../../../.. ; ls'
+# -------------------------------------
+# My custom aliases for bash/zsh shell
+# -------------------------------------
+
+
+alias ls='ls --color=auto -hF'
+alias ll='ls -l'
+alias la='ls -A'
+alias lla='ls -lA'
+alias mv='mv -i'
+alias cp='cp -i'
+alias rm='rm -i'
 alias shellrestart='exec $SHELL -l'
-alias tarzip='tar -zcvf'
+alias ..='z .. ; ls'
+alias ....='z ../.. ; ls'
+alias ......='z ../../.. ; ls'
+alias ........='z ../../../.. ; ls'
+alias ..........='z ../../../../.. ; ls'
+alias ............='z ../../../../../.. ; ls'
+alias nvim='nvim -p'
 
-source_most_common_ansestor_venv() {
-  is_in_git_repo=$( git rev-parse --is-inside-work-tree 2>/dev/null )
-  home_venv_exists=$( ls "$HOME/.venv/" 2>/dev/null )
-  if [ "$is_in_git_repo" = "true" ]; then
-    repo_root=$( git rev-parse --show-toplevel )
-    repo_venv_exists=$( ls "$repo_root/.venv/" 2>/dev/null )
-    if [ "$repo_venv_exists" != "" ]; then
-      source "$repo_root/.venv/bin/activate"
-      return
-    fi
-  fi
-  if [ "$home_venv_exists" != "" ]; then
-    source "$HOME/.venv/bin/activate"
+
+function explorerfunc() {
+  if [ $# = 0 ]; then
+    explorer.exe .
+  elif [ $# = 1 ]; then
+    explorer.exe "$1"
   else
-    echo "ERROR : .venv not found"
+    echo "ERROR : too many args"
   fi
 }
-alias venv='source_most_common_ansestor_venv'
 
-function find_activate_venv() {
-  local current_dir=$(pwd)
-  if [[ "$current_dir" != "$HOME"* ]]; then
-    echo "Error: Current directory is not under $HOME. Aborting."
+
+function zl() {
+  z $1
+  ls
+}
+
+
+alias python="uv run python"
+alias py="python"
+
+
+function _find_activate_venv_bash() {
+  local dir="$PWD"
+  local home_top="$(dirname "$HOME")"
+
+  [[ $dir != "$HOME"* ]] && {
+    echo "Not under \$HOME"
     return 1
-  fi
-  while [ "$current_dir" != $(dirname "$HOME") ] && [ "$current_dir" != "/" ]; do
-    for dir in "$current_dir"/.*/ "$current_dir"/*/; do
-      if [ -d "$dir" ] && [ -f "$dir/bin/activate" ]; then
-        source "$dir/bin/activate"
-        echo "Python venv found '$dir' and sourced"
-        return 0
-      fi
+  }
+
+  shopt -s nullglob # Unmatched globs vanish
+
+  while [[ $dir != "$home_top" && $dir != / ]]; do
+    local -a venvs=()
+
+    # Collect candidate venv directories in this level only
+    for d in "$dir"/*/ "$dir"/.[!.]*/; do
+      [[ -f $d/bin/activate ]] && venvs+=("${d%/}")
     done
-    current_dir=$(dirname "$current_dir")
+
+    case ${#venvs[@]} in
+    0)
+      dir=$(dirname "$dir")
+      continue
+      ;; # nothing here ─ go up
+    1)
+      source "${venvs[0]}/bin/activate" # exactly one ─ auto-activate
+      echo "Activated: ${venvs[0]}"
+      return 0
+      ;;
+    *) # multiple ─ ask
+      echo "Select virtual environment in '$dir':"
+      select v in "${venvs[@]}" "Cancel"; do
+        ((REPLY == ${#venvs[@]} + 1)) && {
+          echo "Cancelled."
+          return 1
+        }
+        if [[ $REPLY =~ ^[0-9]+$ && $REPLY -ge 1 && $REPLY -le ${#venvs[@]} ]]; then
+          source "${venvs[REPLY - 1]}/bin/activate"
+          echo "Activated: ${venvs[REPLY - 1]}"
+          return 0
+        fi
+        echo "Invalid choice."
+      done
+      ;;
+    esac
   done
+
   echo "No Python venv found"
+  return 1
 }
-alias venv=find_activate_venv
 
-find_activate_venv2() {
-    local dir="$PWD"
-    local home_top="$(dirname "$HOME")"
+function _find_activate_venv_zsh {
+  emulate -L zsh            # Start a local, clean zsh environment
+  setopt null_glob          # Unmatched globs vanish (bash: shopt -s nullglob)
 
-    [[ $dir != "$HOME"* ]] && {
-        echo "Not under \$HOME"
-        return 1
-    }
+  local dir=$PWD
+  local home_top=${HOME:h}  # One level above $HOME  (bash: dirname "$HOME")
 
-    shopt -s nullglob # Unmatched globs vanish
+  # Must be under $HOME
+  if [[ $dir != ${HOME}/* ]]; then
+    echo "Not under \$HOME"
+    return 1
+  fi
 
-    while [[ $dir != "$home_top" && $dir != / ]]; do
-        local -a venvs=()
+  # Walk up the directory tree until home_top or /
+  while [[ $dir != $home_top && $dir != / ]]; do
+    local -a venvs=()       # Candidate venvs in this level
 
-        # Collect candidate venv directories in this level only
-        for d in "$dir"/*/ "$dir"/.[!.]*/; do
-            [[ -f $d/bin/activate ]] && venvs+=("${d%/}")
-        done
-
-        case ${#venvs[@]} in
-        0)
-            dir=$(dirname "$dir")
-            continue
-            ;; # nothing here ─ go up
-        1)
-            source "${venvs[0]}/bin/activate" # exactly one ─ auto-activate
-            echo "Activated: ${venvs[0]}"
-            return 0
-            ;;
-        *) # multiple ─ ask
-            echo "Select virtual environment in '$dir':"
-            select v in "${venvs[@]}" "Cancel"; do
-                ((REPLY == ${#venvs[@]} + 1)) && {
-                    echo "Cancelled."
-                    return 1
-                }
-                if [[ $REPLY =~ ^[0-9]+$ && $REPLY -ge 1 && $REPLY -le ${#venvs[@]} ]]; then
-                    source "${venvs[REPLY - 1]}/bin/activate"
-                    echo "Activated: ${venvs[REPLY - 1]}"
-                    return 0
-                fi
-                echo "Invalid choice."
-            done
-            ;;
-        esac
+    # Collect candidate venv directories at this depth only
+    for d in "$dir"/*/ "$dir"/.[!.]*/; do
+      [[ -f $d/bin/activate ]] && venvs+=("${d%/}")
     done
 
-    echo "No Python venv found"
-    return 1
+    case ${#venvs} in
+      0)
+        dir=${dir:h}    # Go one level up
+        continue
+        ;;
+      1)
+        source "${venvs[1]}/bin/activate"
+        echo "Activated: ${venvs[1]}"
+        return 0
+        ;;
+      *)
+        echo "Select virtual environment in '$dir':"
+        select v in "${venvs[@]}" "Cancel"; do
+          if (( REPLY == ${#venvs}+1 )); then
+            echo "Cancelled."
+            return 1
+          elif (( REPLY >= 1 && REPLY <= ${#venvs} )); then
+            source "${venvs[REPLY]}/bin/activate"
+            echo "Activated: ${venvs[REPLY]}"
+            return 0
+          else
+            echo "Invalid choice."
+          fi
+        done
+        ;;
+    esac
+  done
+
+  echo "No Python venv found"
+  return 1
 }
-alias venv=find_activate_venv2
+
+
+if [ -n "$ZSH_VERSION" ]; then
+  alias venv='_find_activate_venv_zsh'
+elif [ -n "$BASH_VERSION" ]; then
+  alias venv='_find_activate_venv_bashh'
+fi
 
 
 alias exp='explorerfunc'
 alias clip.exe="/mnt/c/Windows/System32/clip.exe"
-Japanese_clip() {
-  iconv -t sjis | clip.exe
-}
-alias clip='Japanese_clip'
+
 
 function explorerfunc(){
   if [ $# = 0 ]; then
@@ -116,17 +168,7 @@ function explorerfunc(){
   fi
 }
 
-function explorerfunc(){
-  if [ $# = 0 ]; then
-    explorer.exe .
-  elif [ $# = 1 ]; then
-    explorer.exe "$1"
-  else
-    echo "ERROR : too many arg"
-  fi
-}
-
-cdexplorer(){
+function cdexplorer(){
   expdir="$1"
   if [ "$expdir" = "" ]; then
     cd ~
@@ -153,7 +195,7 @@ cdexplorer(){
     echo "ERROR"
   fi
 }
-clexplorer(){
+function clexplorer(){
   expdir="$1"
   if [ "$expdir" = "" ]; then
     cd ~
@@ -181,5 +223,7 @@ clexplorer(){
   fi
 }
 
+
 alias cdx=cdexplorer
 alias clx=clexplorer
+
