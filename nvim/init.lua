@@ -94,22 +94,21 @@ vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = false
 
 -- [[ Setting options ]]
--- See `:help vim.opt`
+-- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
 -- Make line numbers default
-vim.opt.number = true
+vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
-vim.opt.relativenumber = true
+vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
--- vim.opt.mouse = 'a'
-vim.opt.mouse = ''
+vim.o.mouse = ''
 
 -- Don't show the mode, since it's already in the status line
-vim.opt.showmode = false
+vim.o.showmode = false
 
 -- setting for better looking code
 vim.opt.wrap = false
@@ -230,7 +229,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     'kickstart-highlight-yank',
     { clear = true }
   ),
-  callback = function() vim.highlight.on_yank() end,
+  callback = function() vim.hl.on_yank() end,
 })
 
 -- remember cursor position
@@ -340,7 +339,7 @@ require('lazy').setup({
         -- set icon mappings to true if you have a Nerd Font
         mappings = vim.g.have_nerd_font,
         -- If you are using a Nerd Font: set icons.keys to an empty table which will use the
-        -- default whick-key.nvim defined Nerd Font icons, otherwise define a string table
+        -- default which-key.nvim defined Nerd Font icons, otherwise define a string table
         keys = vim.g.have_nerd_font and {} or {
           Up = '<Up> ',
           Down = '<Down> ',
@@ -894,40 +893,40 @@ require('lazy').setup({
         -- ts_ls = {},
         --
 
-        pylsp = {
-          plugins = {
-            pycodestyle = {
-              -- maxLineLength = 100,
-              enabled = false,
-            },
-            -- settings from "https://github.com/python-lsp/python-lsp-ruff"
-            -- ruff = {
-            --   enabled = true, -- Enable the plugin
-            --   formatEnabled = true, -- Enable formatting using ruffs formatter
-            --   executable = home .. '/.venv/bin/ruff', -- Custom path to ruff
-            --   -- config = '<path_to_custom_ruff_toml>', -- Custom config for ruff to use
-            --   extendSelect = { 'I' }, -- Rules that are additionally used by ruff
-            --   extendIgnore = { 'C90' }, -- Rules that are additionally ignored by ruff
-            --   format = { 'I' }, -- Rules that are marked as fixable by ruff that should be fixed when running textDocument/formatting
-            --   severities = { ['D212'] = 'I' }, -- Optional table of rules where a custom severity is desired
-            --   unsafeFixes = false, -- Whether or not to offer unsafe fixes as code actions. Ignored with the "Fix All" action
-            --
-            --   -- Rules that are ignored when a pyproject.toml or ruff.toml is present:
-            --   lineLength = 88, -- Line length to pass to ruff checking and formatting
-            --   exclude = { '__about__.py' }, -- Files to be excluded by ruff checking
-            --   select = { 'F' }, -- Rules to be enabled by ruff
-            --   ignore = { 'D210' }, -- Rules to be ignored by ruff
-            --   perFileIgnores = { ['__init__.py'] = 'CPY001' }, -- Rules that should be ignored for specific files
-            --   preview = false, -- Whether to enable the preview style linting and formatting.
-            --   targetVersion = 'py310', -- The minimum python version to target (applies for both linting and formatting).
-            -- },
-
-            -- flake8 = {
-            --   enabled = true,
-            --   maxLineLength = 100,
-            -- },
-          },
-        },
+        -- pylsp = {
+        --   plugins = {
+        --     pycodestyle = {
+        --       -- maxLineLength = 100,
+        --       enabled = false,
+        --     },
+        --     -- settings from "https://github.com/python-lsp/python-lsp-ruff"
+        --     -- ruff = {
+        --     --   enabled = true, -- Enable the plugin
+        --     --   formatEnabled = true, -- Enable formatting using ruffs formatter
+        --     --   executable = home .. '/.venv/bin/ruff', -- Custom path to ruff
+        --     --   -- config = '<path_to_custom_ruff_toml>', -- Custom config for ruff to use
+        --     --   extendSelect = { 'I' }, -- Rules that are additionally used by ruff
+        --     --   extendIgnore = { 'C90' }, -- Rules that are additionally ignored by ruff
+        --     --   format = { 'I' }, -- Rules that are marked as fixable by ruff that should be fixed when running textDocument/formatting
+        --     --   severities = { ['D212'] = 'I' }, -- Optional table of rules where a custom severity is desired
+        --     --   unsafeFixes = false, -- Whether or not to offer unsafe fixes as code actions. Ignored with the "Fix All" action
+        --     --
+        --     --   -- Rules that are ignored when a pyproject.toml or ruff.toml is present:
+        --     --   lineLength = 88, -- Line length to pass to ruff checking and formatting
+        --     --   exclude = { '__about__.py' }, -- Files to be excluded by ruff checking
+        --     --   select = { 'F' }, -- Rules to be enabled by ruff
+        --     --   ignore = { 'D210' }, -- Rules to be ignored by ruff
+        --     --   perFileIgnores = { ['__init__.py'] = 'CPY001' }, -- Rules that should be ignored for specific files
+        --     --   preview = false, -- Whether to enable the preview style linting and formatting.
+        --     --   targetVersion = 'py310', -- The minimum python version to target (applies for both linting and formatting).
+        --     -- },
+        --
+        --     -- flake8 = {
+        --     --   enabled = true,
+        --     --   maxLineLength = 100,
+        --     -- },
+        --   },
+        -- },
 
         lua_ls = {
           -- cmd = { ... },
@@ -954,20 +953,20 @@ require('lazy').setup({
       -- other tools, you can run
       --    :Mason
       --
-      --  You can press `g?` for help in this menu.
-      require('mason').setup()
-
+      -- You can press `g?` for help in this menu.
+      --
+      -- `mason` had to be setup earlier: to configure its options see the
+      -- `dependencies` table for `nvim-lspconfig` above.
+      --
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
-
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
-        'shfmt',
         -- 'pyright',
-        'python-lsp-server',
+        -- 'python-lsp-server',
         'black',
-        -- 'ruff',
+        'ruff',
         -- run `:PylspInstall python-lsp-ruff` to use ruff lsp
         -- because python-lsp-ruff in not available in mason
         -- https://qiita.com/takavfx/items/999d345f9b6c0925334a
@@ -1067,19 +1066,20 @@ require('lazy').setup({
         local disable_filetypes = { c = true, cpp = true }
         local lsp_format_opt
         if disable_filetypes[vim.bo[bufnr].filetype] then
-          lsp_format_opt = 'never'
+          return nil
+          -- lsp_format_opt = 'never'
         else
-          lsp_format_opt = 'fallback'
+          return {
+            timeout_ms = 500,
+            lsp_format = 'fallback',
+          }
         end
-        return {
-          timeout_ms = 500,
-          lsp_format = lsp_format_opt,
-        }
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
+        --
         python = { 'black', 'ruff' },
         bash = { 'shfmt' },
         -- You can use 'stop_after_first' to run the first available formatter from the list
@@ -1143,96 +1143,164 @@ require('lazy').setup({
         -- For an understanding of why the 'default' preset is recommended,
         -- you will need to read `:help ins-completion`
 
-      cmp.setup({
-        snippet = {
-          expand = function(args) luasnip.lsp_expand(args.body) end,
-        },
-        completion = {
-          completeopt = 'menu,menuone,noinsert',
-          -- autocomplete = cmp.autocomplete_enabled,
-          -- autocomplete = false,
-        },
+        -- cmp.setup({
+        --   snippet = {
+        --     expand = function(args) luasnip.lsp_expand(args.body) end,
+        --   },
+        --   completion = {
+        --     completeopt = 'menu,menuone,noinsert',
+        --     -- autocomplete = cmp.autocomplete_enabled,
+        --     -- autocomplete = false,
+        --   },
 
         -- For an understanding of why these mappings were
         -- chosen, you will need to read `:help ins-completion`
         --
         -- No, but seriously. Please read `:help ins-completion`, it is really good!
-        mapping = cmp.mapping.preset.insert({
-          -- Select the [n]ext item
-          ['<C-n>'] = cmp.mapping.select_next_item(),
-          -- Select the [p]revious item
-          ['<C-p>'] = cmp.mapping.select_prev_item(),
+        --
+        -- All presets have the following mappings:
+        -- <tab>/<s-tab>: move to right/left of your snippet expansion
+        -- <c-space>: Open menu or open docs if already open
+        -- <c-n>/<c-p> or <up>/<down>: Select next/previous item
+        -- <c-e>: Hide menu
+        -- <c-k>: Toggle signature help
+        --
+        -- See :h blink-cmp-config-keymap for defining your own keymap
+        preset = 'default',
 
-          -- Scroll the documentation window [b]ack / [f]orward
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
+        --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
+      },
 
-          -- Accept ([y]es) the completion.
-          --  This will auto-import if your LSP supports it.
-          --  This will expand snippets if the LSP sent a snippet.
-          ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+      appearance = {
+        -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+        -- Adjusts spacing to ensure icons are aligned
+        nerd_font_variant = 'mono',
+      },
 
-          -- If you prefer more traditional completion keymaps,
-          -- you can uncomment the following lines
-          -- ['<CR>'] = cmp.mapping.confirm({ select = true }),
-          -- ['<Tab>'] = cmp.mapping.select_next_item(),
-          -- ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+      completion = {
+        -- By default, you may press `<c-space>` to show the documentation.
+        -- Optionally, set `auto_show = true` to show the documentation after a delay.
+        documentation = { auto_show = false, auto_show_delay_ms = 500 },
+      },
 
-          -- ['<Tab>'] = function(fallback)
-          --   if cmp.visible() then
-          --     cmp.select_next_item() -- nvim-cmpの次の候補を選択
-          --   elseif require('copilot.suggestion').is_visible() then
-          --     require('copilot.suggestion').accept() -- Copilotを確定
-          --   else
-          --     fallback() -- normal Tab behavior
-          --   end
-          -- end,
-          -- ['<S-Tab>'] = function(fallback)
-          --   if cmp.visible() then
-          --     cmp.select_prev_item()
-          --   else
-          --     fallback()
-          --   end
-          -- end,
-          -- -- Enterキto accept
-          -- ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      sources = {
+        default = { 'lsp', 'path', 'snippets', 'lazydev' },
+        providers = {
+          lazydev = {
+            module = 'lazydev.integrations.blink',
+            score_offset = 100,
+            -- mapping = cmp.mapping.preset.insert({
+            -- Select the [n]ext item
+            -- ['<C-n>'] = cmp.mapping.select_next_item(),
+            -- Select the [p]revious item
+            -- ['<C-p>'] = cmp.mapping.select_prev_item(),
 
-          -- Manually trigger a completion from nvim-cmp.
-          --  Generally you don't need this, because nvim-cmp will display
-          --  completions whenever it has completion options available.
-          ['<C-Space>'] = cmp.mapping.complete({}),
+            -- Scroll the documentation window [b]ack / [f]orward
+            -- ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+            -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
 
-          -- Think of <c-l> as moving to the right of your snippet expansion.
-          --  So if you have a snippet that's like:
-          --  function $name($args)
-          --    $body
-          --  end
-          --
-          -- <c-l> will move you to the right of each of the expansion locations.
-          -- <c-h> is similar, except moving you backwards.
-          ['<C-l>'] = cmp.mapping(function()
-            if luasnip.expand_or_locally_jumpable() then
-              luasnip.expand_or_jump()
-            end
-          end, { 'i', 's' }),
-          ['<C-h>'] = cmp.mapping(function()
-            if luasnip.locally_jumpable(-1) then luasnip.jump(-1) end
-          end, { 'i', 's' }),
+            -- Accept ([y]es) the completion.
+            --  This will auto-import if your LSP supports it.
+            --  This will expand snippets if the LSP sent a snippet.
+            -- ['<C-y>'] = cmp.mapping.confirm({ select = true }),
 
-          -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
-          --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
-        }),
-        sources = {
-          {
-            name = 'lazydev',
-            -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
-            group_index = 0,
+            -- If you prefer more traditional completion keymaps,
+            -- you can uncomment the following lines
+            -- ['<CR>'] = cmp.mapping.confirm({ select = true }),
+            -- ['<Tab>'] = cmp.mapping.select_next_item(),
+            -- ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+
+            -- ['<Tab>'] = function(fallback)
+            --   if cmp.visible() then
+            --     cmp.select_next_item() -- nvim-cmpの次の候補を選択
+            --   elseif require('copilot.suggestion').is_visible() then
+            --     require('copilot.suggestion').accept() -- Copilotを確定
+            --   else
+            --     fallback() -- normal Tab behavior
+            --   end
+            -- end,
+            -- ['<S-Tab>'] = function(fallback)
+            --   if cmp.visible() then
+            --     cmp.select_prev_item()
+            --   else
+            --     fallback()
+            --   end
+            -- end,
+            -- -- Enterキto accept
+            -- ['<CR>'] = cmp.mapping.confirm({ select = true }),
+
+            -- Manually trigger a completion from nvim-cmp.
+            --  Generally you don't need this, because nvim-cmp will display
+            --  completions whenever it has completion options available.
+            -- ['<C-Space>'] = cmp.mapping.complete({}),
+
+            -- Think of <c-l> as moving to the right of your snippet expansion.
+            --  So if you have a snippet that's like:
+            --  function $name($args)
+            --    $body
+            --  end
+            --
+            -- <c-l> will move you to the right of each of the expansion locations.
+            -- <c-h> is similar, except moving you backwards.
+            -- ['<C-l>'] = cmp.mapping(function()
+            --   if luasnip.expand_or_locally_jumpable() then
+            --     luasnip.expand_or_jump()
+            --   end
+            -- end, { 'i', 's' }),
+            -- ['<C-h>'] = cmp.mapping(function()
+            --   if luasnip.locally_jumpable(-1) then luasnip.jump(-1) end
+            -- end, { 'i', 's' }),
+
+            -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
+            --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
+            -- }),
+            -- sources = {
+            --   {
+            --     name = 'lazydev',
+            --     -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
+            --     group_index = 0,
           },
-          { name = 'nvim_lsp' },
-          { name = 'luasnip' },
-          { name = 'path' },
+        },
+      },
+      -- { name = 'nvim_lsp' },
+      -- { name = 'luasnip' },
+      -- { name = 'path' },
+      snippets = { preset = 'luasnip' },
+
+      -- Blink.cmp includes an optional, recommended rust fuzzy matcher,
+      -- which automatically downloads a prebuilt binary when enabled.
+      --
+      -- By default, we use the Lua implementation instead, but you may enable
+      -- the rust implementation via `'prefer_rust_with_warning'`
+      --
+      -- See :h blink-cmp-config-fuzzy for more information
+      fuzzy = { implementation = 'lua' },
+
+      -- Shows a signature help window while you type arguments for a function
+      signature = { enabled = true },
+    },
+  },
+
+  { -- You can easily change to a different colorscheme.
+    -- Change the name of the colorscheme plugin below, and then
+    -- change the command in the config to whatever the name of that colorscheme is.
+    --
+    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+    'folke/tokyonight.nvim',
+    priority = 1000, -- Make sure to load this before all the other start plugins.
+    config = function()
+      ---@diagnostic disable-next-line: missing-fields
+      require('tokyonight').setup({
+        styles = {
+          comments = { italic = false }, -- Disable italics in comments
         },
       })
+
+      -- Load the colorscheme here.
+      -- Like many other themes, this one has different styles, and you could load
+      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+      -- vim.cmd.colorscheme('tokyonight-night')
     end,
   },
 
@@ -1279,7 +1347,6 @@ require('lazy').setup({
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
-
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
@@ -1525,9 +1592,9 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug',
-  require('kickstart.plugins.indent_line'),
+  -- require('kickstart.plugins.indent_line'),
   -- require 'kickstart.plugins.lint',
-  require('kickstart.plugins.autopairs'),
+  -- require('kickstart.plugins.autopairs'),
   require('kickstart.plugins.neo-tree'),
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
