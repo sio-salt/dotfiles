@@ -47,8 +47,6 @@ vim.keymap.set('n', '<F5>', function()
     command = 'python ' .. vim.fn.shellescape(filename)
   elseif filetype == 'javascript' then
     command = 'node ' .. vim.fn.shellescape(filename)
-  elseif filetype == 'ruby' then
-    command = 'ruby ' .. vim.fn.shellescape(filename)
   elseif filetype == 'sh' then
     command = 'bash ' .. vim.fn.shellescape(filename)
   else
