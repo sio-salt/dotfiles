@@ -106,7 +106,7 @@ command -v uv >/dev/null 2>&1 && eval "$(uv generate-shell-completion zsh)"
 command -v uvx >/dev/null 2>&1 && eval "$(uvx --generate-shell-completion zsh)"
 command -v ruff >/dev/null 2>&1 && eval "$(ruff generate-shell-completion zsh)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-command -v molgeom >/dev/null 2>&1  && eval "$(molgeom --generate-completion zsh)"
+command -v molgeom >/dev/null 2>&1  && eval "$(_MOLGEOM_COMPLETE=zsh_source molgeom)"
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 
