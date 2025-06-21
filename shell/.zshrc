@@ -4,6 +4,7 @@ export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 # add snap dir
 export PATH="$PATH:/snap/bin"
 
+# My global python venv
 [ -d "$HOME/.venv/bin" ] && export PATH="$HOME/.venv/bin:$PATH"
 
 # Path to your Oh My Zsh installation.
@@ -12,7 +13,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="mytheme"
+# ZSH_THEME="mytheme"
 
 
 # Set list of themes to pick from when loading at random
@@ -22,7 +23,7 @@ ZSH_THEME="mytheme"
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
@@ -99,26 +100,21 @@ fi
 
 source $ZSH_CUSTOM/aliases.zsh
 
+command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
+command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init zsh)"
+command -v uv >/dev/null 2>&1 && eval "$(uv generate-shell-completion zsh)"
+command -v uvx >/dev/null 2>&1 && eval "$(uvx --generate-shell-completion zsh)"
+command -v ruff >/dev/null 2>&1 && eval "$(ruff generate-shell-completion zsh)"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+command -v molgeom >/dev/null 2>&1  && eval "$(molgeom --generate-completion zsh)"
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+
 # Enable vi keybindings in the shell
 bindkey -v
 
 # zsh-autosuggestions keybindings
 # bindkey '^ ' autosuggest-accept
-
-eval "$(zoxide init zsh)"
-eval "$(uv generate-shell-completion zsh)"
-eval "$(uvx --generate-shell-completion zsh)"
-eval "$(ruff generate-shell-completion zsh)"
-
-# Enable fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# my molgeom completion
-eval "$(_MOLGEOM_COMPLETE=zsh_source molgeom)"
-
-# cargo setup
-. "$HOME/.cargo/env"
-
 
 # after zsh-vi-mode is loaded, we can set the keybindings
 function zvm_after_lazy_keybindings() {
