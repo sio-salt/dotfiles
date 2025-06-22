@@ -442,6 +442,7 @@ require('lazy').setup({
         --  All the info you're looking for is in `:help telescope.setup()`
         --
         defaults = {
+          file_ignore_patterns = { '^.git/' },
           mappings = {
             -- i = { ['<c-enter>'] = 'to_fuzzy_refine' },
             i = {
@@ -459,6 +460,7 @@ require('lazy').setup({
           },
           find_files = {
             no_ignore = true,
+            hidden = true,
           },
         },
         extensions = {

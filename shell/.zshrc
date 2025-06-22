@@ -116,8 +116,13 @@ bindkey -v
 # zsh-autosuggestions keybindings
 # bindkey '^ ' autosuggest-accept
 
+# function send_escape_then_fzf_history_widget() {
+#   zle send-break        # Sends an ESC (exits viins to vicmd)
+#   zle fzf-history-widget
+# }
+
 # after zsh-vi-mode is loaded, we can set the keybindings
 function zvm_after_lazy_keybindings() {
-  zvm_bindkey viins '^R' fzf-history-widget
+    zvm_bindkey viins '^R' fzf-history-widget
 }
 
