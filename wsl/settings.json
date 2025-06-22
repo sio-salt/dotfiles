@@ -1,0 +1,170 @@
+{
+    "$help": "https://aka.ms/terminal-documentation",
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+    "actions": 
+    [
+        {
+            "command": 
+            {
+                "action": "copy",
+                "singleLine": false
+            },
+            "id": "User.copy.644BA8F2"
+        },
+        {
+            "command": "paste",
+            "id": "User.paste"
+        },
+        {
+            "command": "find",
+            "id": "User.find"
+        },
+        {
+            "command": 
+            {
+                "action": "splitPane",
+                "split": "auto",
+                "splitMode": "duplicate"
+            },
+            "id": "User.splitPane.A6751878"
+        }
+    ],
+    "copyFormatting": "none",
+    "copyOnSelect": false,
+    "defaultProfile": "{0f00fb74-81d1-53ec-979d-5bc95ff45b40}",
+    "initialCols": 100,
+    "initialRows": 55,
+    "keybindings": 
+    [
+        {
+            "id": "User.copy.644BA8F2",
+            "keys": "ctrl+c"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+shift+v"
+        },
+        {
+            "id": "User.find",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "id": "User.splitPane.A6751878",
+            "keys": "alt+shift+d"
+        }
+    ],
+    "newTabMenu": 
+    [
+        {
+            "type": "remainingProfiles"
+        }
+    ],
+    "profiles": 
+    {
+        "defaults": 
+        {
+            "colorScheme": "MyTheme"
+        },
+        "list": 
+        [
+            {
+                "commandline": "%SystemRoot%\\System32\\cmd.exe",
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "hidden": false,
+                "name": "\u30b3\u30de\u30f3\u30c9 \u30d7\u30ed\u30f3\u30d7\u30c8"
+            },
+            {
+                "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
+                "hidden": false,
+                "name": "Azure Cloud Shell",
+                "source": "Windows.Terminal.Azure"
+            },
+            {
+                "font": 
+                {
+                    "face": "Hack Nerd Font",
+                    "size": 14
+                },
+                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+                "hidden": false,
+                "name": "PowerShell",
+                "opacity": 90,
+                "source": "Windows.Terminal.PowershellCore"
+            },
+            {
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "hidden": false,
+                "name": "Windows PowerShell"
+            },
+            {
+                "bellStyle": "window",
+                "colorScheme": "MyTheme",
+                "font": 
+                {
+                    "face": "0xProto Nerd Font",
+                    "size": 13,
+                    "weight": "semi-light"
+                },
+                "guid": "{0f00fb74-81d1-53ec-979d-5bc95ff45b40}",
+                "hidden": false,
+                "name": "Ubuntu",
+                "opacity": 100,
+                "padding": "12",
+                "source": "Microsoft.WSL"
+            },
+            {
+                "guid": "{e56fa74c-0e0f-5031-8c4a-9e16ea8a78ea}",
+                "hidden": false,
+                "name": "Developer Command Prompt for VS 2022",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{e91633cf-6196-558d-8edc-aa77860761bd}",
+                "hidden": false,
+                "name": "Developer PowerShell for VS 2022",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "colorScheme": "MyTheme",
+                "commandline": "C:\\Program Files\\Git\\bin\\bash.exe",
+                "font": 
+                {
+                    "face": "0xProto Nerd Font"
+                },
+                "guid": "{da99036f-f3c9-4688-a3d1-3b9d0972aaac}",
+                "hidden": false,
+                "icon": "C:\\Program Files\\Git\\git-bash-seeklogo.png",
+                "name": "Git Bash",
+                "opacity": 90,
+                "startingDirectory": "%USERPROFILE%"
+            }
+        ]
+    },
+    "schemes": 
+    [
+        {
+            "background": "#1E1E2E",
+            "black": "#000000",
+            "blue": "#1F91E6",
+            "brightBlack": "#BABABA",
+            "brightBlue": "#0BB9FF",
+            "brightCyan": "#1DDEFF",
+            "brightGreen": "#0FF539",
+            "brightPurple": "#D670D6",
+            "brightRed": "#FF4F19",
+            "brightWhite": "#F0F0F0",
+            "brightYellow": "#F5F543",
+            "cursorColor": "#B5B5B5",
+            "cyan": "#2BC2F0",
+            "foreground": "#E8E8E8",
+            "green": "#0FDB8D",
+            "name": "MyTheme",
+            "purple": "#EA1DFA",
+            "red": "#EB4D4D",
+            "selectionBackground": "#FFFFFF",
+            "white": "#DEDEDE",
+            "yellow": "#F5AA0A"
+        }
+    ],
+    "themes": []
+}
