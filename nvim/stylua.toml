@@ -1,4 +1,4 @@
-# .stylua.toml
+# stylua.toml
 
 # Set indentation to spaces and specify width
 indent_type = "Spaces"            # Options: "Spaces" or "Tabs"
@@ -8,7 +8,7 @@ indent_width = 2                  # Indentation width in spaces
 line_endings = "Unix"             # Options: "Unix" or "Windows"
 
 # Maximum line width
-column_width = 80                 # Wrap lines at this width
+column_width = 120                 # Wrap lines at this width
 
 # Quote style
 quote_style = "AutoPreferSingle"  # Options: "AutoPreferDouble", "AutoPreferSingle", "ForceSingle", "ForceDouble"

@@ -1,23 +1,13 @@
--- keymap configuration
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Add any additional keymaps here
 
--- Ctrl+Shift+l
--- map('n', '<cs-l>', [[<cmd>lua print('ctrl+shift+l')<cr>]], { noremap = true })
-
--- vim.keymap.set('i', '<C-l>', '<Left>')
--- vim.keymap.set('i', '<cs-l>', '<C-Left>')
+-- my keymap configuration
 
 vim.keymap.set('n', 'j', 'gj')
 vim.keymap.set('n', 'k', 'gk')
 vim.keymap.set('n', '<C-a>', 'ggVG')
 vim.keymap.set('n', '<c-w>L', ':Neotree toggle <CR>')
--- vim.keymap.set('n', '<c-e>', ':Neotree toggle <CR>')
-vim.keymap.set('n', '<C-e>', function()
-  if vim.bo.filetype == 'neo-tree' then
-    vim.cmd('Neotree close')
-  else
-    vim.cmd('Neotree focus')
-  end
-end, { noremap = true, silent = true })
 
 vim.keymap.set('n', '<C-w>l', function()
   local count = vim.v.count1
@@ -43,12 +33,14 @@ vim.keymap.set('n', '<F5>', function()
   local filename = vim.fn.expand('%')
 
   local command = nil
-  if filetype == 'python' then
-    command = 'python ' .. vim.fn.shellescape(filename)
-  elseif filetype == 'javascript' then
-    command = 'node ' .. vim.fn.shellescape(filename)
-  elseif filetype == 'sh' then
-    command = 'bash ' .. vim.fn.shellescape(filename)
+  local filetypes = { 'python', 'lua', 'sh' }
+
+  for i, ft in pairs(filetype) do
+    if ft == vim.bo.filetype then command = ft .. vim.fn.shellescape(filename) end
+  end
+
+  if filetype == 'javascript' then
+    command = 'node' .. vim.fn.shellescape(filename)
   else
     print('Execute command is not defined for this file type: ' .. filetype)
     return
@@ -58,22 +50,17 @@ vim.keymap.set('n', '<F5>', function()
 end, { noremap = true, silent = true, desc = 'Run current file' })
 
 -- copilot toggle
-local copilot_on = true
-vim.keymap.set(
-  'n',
-  '<leader>tcs',
-  function()
-    if copilot_on then
-      vim.cmd('Copilot disable')
-      print('Copilot OFF')
-    else
-      vim.cmd('Copilot enable')
-      print('Copilot ON')
-    end
-    copilot_on = not copilot_on
-  end,
-  { noremap = true, silent = true, desc = '[T]oggle [C]opilot [S]uggestion' }
-)
+-- local copilot_on = true
+-- vim.keymap.set('n', '<leader>tcs', function()
+--     if copilot_on then
+--         vim.cmd('Copilot disable')
+--         print('Copilot OFF')
+--     else
+--         vim.cmd('Copilot enable')
+--         print('Copilot ON')
+--     end
+--     copilot_on = not copilot_on
+-- end, { noremap = true, silent = true, desc = '[T]oggle [C]opilot [S]uggestion' })
 
 vim.keymap.set('v', '<C-c>', '"+y')
 
@@ -83,7 +70,9 @@ vim.keymap.set({ 'n', 'v' }, 'x', '"_x')
 vim.keymap.set({ 'n', 'v' }, '<leader>p', '"0p')
 vim.keymap.set({ 'n', 'v' }, '<leader>P', '"0P')
 vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d')
+vim.keymap.set({ 'n', 'v' }, '<C-a>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<C-Up>', '<C-a>')
+vim.keymap.set({ 'n', 'v' }, '<C-x>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<C-Down>', '<C-x>')
 
 -- toggle auto suggestion
@@ -94,21 +83,17 @@ vim.keymap.set({ 'n', 'v' }, '<C-Down>', '<C-x>')
 --   { desc = '[T]oggle [A]uto [S]uggestion' }
 -- )
 
-vim.keymap.set(
-  { 'n', 'v' },
-  '<leader>m',
-  '%',
-  { desc = '[J]ump to [M]atching braces' }
-)
+vim.keymap.set({ 'n', 'v' }, '<leader>m', '%', { desc = '[J]ump to [M]atching braces' })
 
-vim.keymap.set(
-  { 'n', 'v' },
-  '<leader>tcc',
-  ':CopilotChatToggle<CR>',
-  { noremap = true, silent = true, desc = '[T]oggle [C]opilot [C]hat' }
-)
+-- vim.keymap.set(
+--     { 'n', 'v' },
+--     '<leader>tcc',
+--     ':CopilotChatToggle<CR>',
+--     { noremap = true, silent = true, desc = '[T]oggle [C]opilot [C]hat' }
+-- )
 
 -- Map <F2> to toggle 'mouse' setting
+vim.o.mouse = ''
 vim.keymap.set({ 'i', 'n', 'v' }, '<F2>', function()
   if vim.o.mouse == 'a' then
     vim.o.mouse = ''
