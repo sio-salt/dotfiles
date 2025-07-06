@@ -45,6 +45,8 @@ vim.keymap.set('n', '<F5>', function()
   local command = nil
   if filetype == 'python' then
     command = 'python ' .. vim.fn.shellescape(filename)
+  elseif filetype == 'lua' then
+    command = 'lua ' .. vim.fn.shellescape(filename)
   elseif filetype == 'javascript' then
     command = 'node ' .. vim.fn.shellescape(filename)
   elseif filetype == 'sh' then
