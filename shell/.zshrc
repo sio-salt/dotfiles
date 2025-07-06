@@ -78,7 +78,7 @@ HYPHEN_INSENSITIVE="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  zsh-vi-mode
+  # zsh-vi-mode
   zsh-autosuggestions
 )
 
@@ -111,7 +111,12 @@ command -v molgeom >/dev/null 2>&1  && eval "$(_MOLGEOM_COMPLETE=zsh_source molg
 
 
 # Enable vi keybindings in the shell
-bindkey -v
+# bindkey -v
+
+# after zsh-vi-mode is loaded, we can set the keybindings
+# function zvm_after_lazy_keybindings() {
+#     zvm_bindkey viins '^R' fzf-history-widget
+# }
 
 # zsh-autosuggestions keybindings
 # bindkey '^ ' autosuggest-accept
@@ -120,9 +125,4 @@ bindkey -v
 #   zle send-break        # Sends an ESC (exits viins to vicmd)
 #   zle fzf-history-widget
 # }
-
-# after zsh-vi-mode is loaded, we can set the keybindings
-function zvm_after_lazy_keybindings() {
-    zvm_bindkey viins '^R' fzf-history-widget
-}
 
