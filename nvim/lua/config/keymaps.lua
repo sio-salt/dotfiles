@@ -105,15 +105,19 @@ vim.keymap.set({ 'i', 'n', 'v' }, '<F2>', function()
 end)
 
 -- Set up clipboard for win32yank usage (system clipboard)
-vim.g.clipboard = {
-  name = 'myClipboard',
-  copy = {
-    ['+'] = 'win32yank.exe -i', -- Use win32yank for copying to +
-    ['*'] = 'win32yank.exe -i', -- Use win32yank for copying to *
-  },
-  paste = {
-    ['+'] = 'win32yank.exe -o', -- Use win32yank for pasting from +
-    ['*'] = 'win32yank.exe -o', -- Use win32yank for pasting from *
-  },
-  cache_enabled = 1,
-}
+if vim.fn.has('win32') == 1 or vim.fn.has('wsl') == 1 then
+  vim.g.clipboard = {
+    name = 'myClipboard',
+    copy = {
+      ['+'] = 'win32yank.exe -i', -- Use win32yank for copying to +
+      ['*'] = 'win32yank.exe -i', -- Use win32yank for copying to *
+    },
+    paste = {
+      ['+'] = 'win32yank.exe -o', -- Use win32yank for pasting from +
+      ['*'] = 'win32yank.exe -o', -- Use win32yank for pasting from *
+    },
+    cache_enabled = 1,
+  }
+else
+  -- linux
+end
