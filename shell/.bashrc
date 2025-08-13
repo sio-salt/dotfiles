@@ -101,15 +101,13 @@ fi
 
 if [ -d ~/.bashrc.d ]; then
     for rc in ~/.bashrc.d/*; do
-        if [ -f "$rc" ]; then
-            . "$rc"
-        fi
+        [ -r "$rc" ] && source "$rc"
     done
 fi
 
 if [ -d ~/.bash_completion.d ]; then
     for f in ~/.bash_completion.d/*; do
-        [ -f "$f" ] && source "$f"
+        [ -r "$f" ] && source "$f"
     done
 fi
 
