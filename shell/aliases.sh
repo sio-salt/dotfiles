@@ -19,6 +19,7 @@ alias upupup='z ../../.. ; ls'
 alias upupupup='z ../../../.. ; ls'
 alias upupupupup='z ../../../../.. ; ls'
 alias upupupupupup='z ../../../../../.. ; ls'
+alias nv='nvim'
 
 function zl() {
     z $1
@@ -147,7 +148,15 @@ if uname -r | grep -iq microsoft; then
         if [ $# = 0 ]; then
             explorer.exe .
         elif [ $# = 1 ]; then
-            explorer.exe "$1"
+            if [ ! -e $1 ]; then
+                echo "error: $1 does not exist"
+                return 1
+            fi
+            relpath=$(realpath $1 | xargs realpath --relative-to=$(pwd))
+            echo $relpath
+            winpath=$(echo $relpath | sed "s:\/:\\\:g")
+            echo \".\\$winpath\"
+            explorer.exe \"$winpath\"
         else
             echo "ERROR : too many arg"
         fi
@@ -208,7 +217,8 @@ if uname -r | grep -iq microsoft; then
         fi
     }
 
-    alias exp='explorerfunc'
+    alias explorer='explorerfunc'
+    alias expl='explorer'
     alias clip="/mnt/c/Windows/System32/clip.exe"
     alias cdx=cdexplorer
     alias clx=clexplorer

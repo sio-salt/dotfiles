@@ -78,7 +78,7 @@ xterm* | rxvt*)
 esac
 
 # colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -99,24 +99,23 @@ fi
 # User specific aliases and functions
 # -------------------------------------
 
-if [ -d ~/.bashrc.d ]; then
-    for rc in ~/.bashrc.d/*; do
-        [ -r "$rc" ] && source "$rc"
-    done
-fi
-
-if [ -d ~/.bash_completion.d ]; then
-    for f in ~/.bash_completion.d/*; do
-        [ -r "$f" ] && source "$f"
-    done
-fi
-
-# User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:$HOME/.venv/bin:" ]]; then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 export PATH
 
-if [ -f "$HOME/00.repos/dotfiles/shell/aliases" ]; then
-    source "$HOME/00.repos/dotfiles/shell/aliases"
+if [ -f "$HOME/00.repos/dotfiles/shell/aliases.sh" ]; then
+    source "$HOME/00.repos/dotfiles/shell/aliases.sh"
+fi
+
+if [ -d ~/.bashrc.d ]; then
+    for rc in ~/.bashrc.d/*; do
+        [ -r $(realpath "$rc") ] && source "$rc"
+    done
+fi
+
+if [ -d ~/.bash_completion.d ]; then
+    for f in ~/.bash_completion.d/*; do
+        [ -r $(realpath "$f") ] && source "$f"
+    done
 fi
