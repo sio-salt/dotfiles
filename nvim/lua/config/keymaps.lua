@@ -71,7 +71,11 @@ vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d')
 vim.keymap.set({ 'n', 'v' }, '<C-Up>', '<C-a>')
 vim.keymap.set({ 'n', 'v' }, '<C-x>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<C-Down>', '<C-x>')
+<<<<<<< HEAD
 vim.keymap.set({ 'n', 'v' }, '<C-a>', 'ggVG')
+=======
+vim.keymap.set('n', '<C-a>', 'ggVG', { desc = 'select all' })
+>>>>>>> 9de617be5187dfcf45dd72a1722bb89f1da85370
 
 -- toggle auto suggestion
 -- vim.keymap.set(
@@ -103,19 +107,19 @@ vim.keymap.set({ 'i', 'n', 'v' }, '<F2>', function()
 end)
 
 -- Set up clipboard for win32yank usage (system clipboard)
-if vim.fn.has('win32') == 1 or vim.fn.has('wsl') == 1 then
-    vim.g.clipboard = {
-        name = 'myClipboard',
-        copy = {
-            ['+'] = 'win32yank.exe -i', -- Use win32yank for copying to +
-            ['*'] = 'win32yank.exe -i', -- Use win32yank for copying to *
-        },
-        paste = {
-            ['+'] = 'win32yank.exe -o', -- Use win32yank for pasting from +
-            ['*'] = 'win32yank.exe -o', -- Use win32yank for pasting from *
-        },
-        cache_enabled = 1,
-    }
-else
-    -- linux
-end
+-- if vim.fn.has('win32') == 1 or vim.fn.has('wsl') == 1 then
+--     vim.g.clipboard = {
+--         name = 'myClipboard',
+--         copy = {
+--             ['+'] = 'win32yank.exe -i', -- Use win32yank for copying to +
+--             ['*'] = 'win32yank.exe -i', -- Use win32yank for copying to *
+--         },
+--         paste = {
+--             ['+'] = 'win32yank.exe -o', -- Use win32yank for pasting from +
+--             ['*'] = 'win32yank.exe -o', -- Use win32yank for pasting from *
+--         },
+--         cache_enabled = 1,
+--     }
+-- else
+--     -- linux
+-- end

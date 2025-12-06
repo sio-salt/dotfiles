@@ -3,36 +3,29 @@
 # -------------------------------------
 
 alias ls='ls --color=auto -hF'
-alias ll='ls -l'
+alias ll='ls -alF'
 alias la='ls -A'
-alias lla='ls -lA'
 alias mv='mv -i'
 alias cp='cp -i'
 alias rm='rm -i'
-alias shellrestart='exec $SHELL -l'
+#alias dir='dir --color=auto'
+#alias vdir='vdir --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 alias up='z .. ; ls'
 alias upup='z ../.. ; ls'
 alias upupup='z ../../.. ; ls'
 alias upupupup='z ../../../.. ; ls'
 alias upupupupup='z ../../../../.. ; ls'
 alias upupupupupup='z ../../../../../.. ; ls'
-alias nvim='nvim -p'
+alias nv='nvim'
 alias 10back='source $HOME/00.repos/c.cli-tools/backcd.bash/backcd.bash'
 alias python="uv run python"
 alias py="python"
 
-function explorerfunc() {
-    if [ $# = 0 ]; then
-        explorer.exe .
-    elif [ $# = 1 ]; then
-        explorer.exe "$1"
-    else
-        echo "ERROR : too many args"
-    fi
-}
-
 function zl() {
-    z $*
+    z $1
     ls
 }
 
@@ -147,74 +140,87 @@ elif [ -n "$BASH_VERSION" ]; then
     alias venv='_find_activate_venv_bash'
 fi
 
-alias exp='explorerfunc'
-alias clip.exe="/mnt/c/Windows/System32/clip.exe"
+# -------------------------------------
+# WSL aliases
+# -------------------------------------
+if uname -r | grep -iq microsoft; then
+    function explorerfunc() {
+        if [ $# = 0 ]; then
+            explorer.exe .
+        elif [ $# = 1 ]; then
+            if [ ! -e $1 ]; then
+                echo "error: $1 does not exist"
+                return 1
+            fi
+            relpath=$(realpath $1 | xargs realpath --relative-to=$(pwd))
+            echo $relpath
+            winpath=$(echo $relpath | sed "s:\/:\\\:g")
+            echo \".\\$winpath\"
+            explorer.exe \"$winpath\"
+        else
+            echo "ERROR : too many arg"
+        fi
+    }
 
-function explorerfunc() {
-    if [ $# = 0 ]; then
-        explorer.exe .
-    elif [ $# = 1 ]; then
-        explorer.exe "$1"
-    else
-        echo "ERROR : too many arg"
-    fi
-}
+    function cdexplorer() {
+        expdir="$1"
+        if [ "$expdir" = "" ]; then
+            cd ~
+        fi
+        drive=${expdir:0:2}
+        #echo $drive
 
-function cdexplorer() {
-    expdir="$1"
-    if [ "$expdir" = "" ]; then
-        cd ~
-    fi
-    drive=${expdir:0:2}
-    #echo $drive
+        cdg=''
+        if [ "$drive" = "C:" ]; then
+            cdg=c
+        elif [ "$drive" = "D:" ]; then
+            cdg=d
+        elif [ "$drive" = "G:" ]; then
+            cdg=g
+        else
+            echo "ERROR : unknown drive"
+        fi
 
-    cdg=''
-    if [ "$drive" = "C:" ]; then
-        cdg=c
-    elif [ "$drive" = "D:" ]; then
-        cdg=d
-    elif [ "$drive" = "G:" ]; then
-        cdg=g
-    else
-        echo "ERROR : unknown drive"
-    fi
+        cd $(echo "$expdir" | sed 's:\\:/:g' | sed "s|$drive|/mnt/$cdg|g")
+        result=$?
+        if [ $result = 0 ]; then
+            :
+        else
+            echo "ERROR"
+        fi
+    }
+    function clexplorer() {
+        expdir="$1"
+        if [ "$expdir" = "" ]; then
+            cd ~
+        fi
+        drive=${expdir:0:2}
 
-    cd $(echo "$expdir" | sed 's:\\:/:g' | sed "s|$drive|/mnt/$cdg|g")
-    result=$?
-    if [ $result = 0 ]; then
-        :
-    else
-        echo "ERROR"
-    fi
-}
-function clexplorer() {
-    expdir="$1"
-    if [ "$expdir" = "" ]; then
-        cd ~
-    fi
-    drive=${expdir:0:2}
+        cdg=''
+        if [ "$drive" = "C:" ]; then
+            cdg=c
+        elif [ "$drive" = "D:" ]; then
+            cdg=d
+        elif [ "$drive" = "G:" ]; then
+            cdg=g
+        else
+            echo "ERROR : unknown drive"
+        fi
 
-    cdg=''
-    if [ "$drive" = "C:" ]; then
-        cdg=c
-    elif [ "$drive" = "D:" ]; then
-        cdg=d
-    elif [ "$drive" = "G:" ]; then
-        cdg=g
-    else
-        echo "ERROR : unknown drive"
-    fi
+        cd $(echo "$expdir" | sed 's:\\:/:g' | sed "s|$drive|/mnt/$cdg|g")
+        result=$?
+        if [ $result = 0 ]; then
+            #echo $result
+            ls
+        else
+            echo "ERROR"
+        fi
+    }
 
-    cd $(echo "$expdir" | sed 's:\\:/:g' | sed "s|$drive|/mnt/$cdg|g")
-    result=$?
-    if [ $result = 0 ]; then
-        #echo $result
-        ls
-    else
-        echo "ERROR"
-    fi
-}
-
-alias cdx=cdexplorer
-alias clx=clexplorer
-
+    alias explorer='explorerfunc'
+    alias expl='explorer'
+    alias clip="/mnt/c/Windows/System32/clip.exe"
+    alias cdx=cdexplorer
+    alias clx=clexplorer
+    alias Chemcraft="/mnt/c/Chemcraft/Chemcraft.exe"
+fi
