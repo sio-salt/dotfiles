@@ -6,8 +6,6 @@
 
 vim.keymap.set('n', 'j', 'gj')
 vim.keymap.set('n', 'k', 'gk')
-vim.keymap.set('n', '<C-a>', 'ggVG')
-vim.keymap.set('n', '<c-w>L', ':Neotree toggle <CR>')
 
 vim.keymap.set('n', '<C-w>l', function()
     local count = vim.v.count1
@@ -70,10 +68,10 @@ vim.keymap.set({ 'n', 'v' }, 'x', '"_x')
 vim.keymap.set({ 'n', 'v' }, '<leader>p', '"0p')
 vim.keymap.set({ 'n', 'v' }, '<leader>P', '"0P')
 vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d')
-vim.keymap.set({ 'n', 'v' }, '<C-a>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<C-Up>', '<C-a>')
 vim.keymap.set({ 'n', 'v' }, '<C-x>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<C-Down>', '<C-x>')
+vim.keymap.set({ 'n', 'v' }, '<C-a>', 'ggVG')
 
 -- toggle auto suggestion
 -- vim.keymap.set(
