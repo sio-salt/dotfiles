@@ -54,6 +54,7 @@ TERM vt100
 TERM xterm
 TERM xterm-16color
 TERM xterm-256color
+TERM xterm-ghostty
 TERM xterm-88color
 TERM xterm-color
 TERM xterm-debian
@@ -390,7 +391,8 @@ EXEC 00
 .cpp 38;5;198
 .cxx 38;5;198
 .cc 38;5;198
-.c 38;5;198
+# .c 38;5;198
+.c 38;5;150
 .h++ 38;5;199
 .hpp 38;5;199
 .hxx 38;5;199
@@ -407,6 +409,7 @@ EXEC 00
 .js 38;5;204
 # .json 38;5;220
 .json 38;5;226
+.jsonl 38;5;226
 .coffee 38;5;204
 .es 38;5;204
 .pl 38;5;205
