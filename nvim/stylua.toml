@@ -2,7 +2,7 @@
 
 # Set indentation to spaces and specify width
 indent_type = "Spaces" # Options: "Spaces" or "Tabs"
-indent_width = 4       # Indentation width in spaces
+indent_width = 2       # Indentation width in spaces
 
 # Line endings style
 line_endings = "Unix" # Options: "Unix" or "Windows"

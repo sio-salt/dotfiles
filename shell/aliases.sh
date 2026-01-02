@@ -25,7 +25,7 @@ alias python="uv run python"
 alias py="python"
 
 function zl() {
-    z $1
+    z $*
     ls
 }
 
