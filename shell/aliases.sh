@@ -23,9 +23,10 @@ alias nv='nvim'
 alias 10back='source $HOME/00.repos/c.cli-tools/backcd.bash/backcd.bash'
 alias python="uv run python"
 alias py="python"
+alias Open="xdg-open"
 
 function zl() {
-    z $1
+    z "$@"
     ls
 }
 
