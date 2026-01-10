@@ -1,0 +1,77 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // "shift shift": "file_finder::Toggle"
+    },
+  },
+  {
+    // normal
+    "context": "Editor && VimControl && vim_mode == normal && !menu ",
+    "bindings": {
+      "space w h": "workspace::ActivatePaneLeft",
+      "space w j": "workspace::ActivatePaneDown",
+      "space w k": "workspace::ActivatePaneUp",
+      "space w l": "workspace::ActivatePaneRight",
+      "space w v": "pane::SplitVertical",
+      "space w s": "pane::SplitHorizontal",
+      "space s f": "file_finder::Toggle",
+      "space s g": "pane::DeploySearch",
+      "space s m": "vim::ToggleMarksView",
+      "space s l": "vim::ShowLocation",
+      "Ctrl-Left": "vim::ResizePaneLeft",
+      "Ctrl-Right": "vim::ResizePaneRight",
+      "g h": "vim::StartOfLine",
+      "g l": "vim::EndOfLine",
+    },
+  },
+  {
+    // normal & visual
+    "context": "Editor && VimControl && (vim_mode == normal || vim_mode == visual) && !menu",
+    "bindings": {
+      "alt-j": "editor::MoveLineDown",
+      "alt-k": "editor::MoveLineUp",
+      "space m": "vim::Matching",
+      "x": ["workspace::SendKeystrokes", "\" _ x"],
+      "X": ["workspace::SendKeystrokes", "\" _ X"],
+      "space p": ["workspace::SendKeystrokes", "\" 0 p"],
+      "space P": ["workspace::SendKeystrokes", "\" 0 P"],
+    },
+  },
+  {
+    // insert
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      // "j k": "vim::NormalBefore"
+    },
+  },
+  {
+    "context": "menu || (Editor && VimControl && vim_mode == normal)",
+    "bindings": {
+      "space e": "workspace::ToggleLeftDock",
+    },
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "H": [
+        "action::Sequence",
+        [
+          "project_panel::ToggleHideGitIgnore",
+          "project_panel::ToggleHideHidden",
+        ],
+      ],
+      "d": "project_panel::Delete",
+      "a": "project_panel::NewFile",
+      "A": "project_panel::NewDirectory",
+      "r": "project_panel::Rename",
+    },
+  },
+]
