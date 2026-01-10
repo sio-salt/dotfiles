@@ -26,8 +26,11 @@
       "space s g": "pane::DeploySearch",
       "space s m": "vim::ToggleMarksView",
       "space s l": "vim::ShowLocation",
+      "Ctrl-a": "editor::SelectAll",
       "Ctrl-Left": "vim::ResizePaneLeft",
       "Ctrl-Right": "vim::ResizePaneRight",
+      "Ctrl-Up": "vim::Increment",
+      "Ctrl-Down": "vim::Decrement",
       "g h": "vim::StartOfLine",
       "g l": "vim::EndOfLine",
     },
@@ -43,6 +46,12 @@
       "X": ["workspace::SendKeystrokes", "\" _ X"],
       "space p": ["workspace::SendKeystrokes", "\" 0 p"],
       "space P": ["workspace::SendKeystrokes", "\" 0 P"],
+    },
+  },
+  {
+    "context": "Editor && VimControl && vim_mode == visual && !menu ",
+    "bindings": {
+      "Ctrl-C": ["workspace::SendKeystrokes", "\" + y"],
     },
   },
   {
@@ -69,6 +78,7 @@
         ],
       ],
       "d": "project_panel::Delete",
+      "/": "project_panel::NewSearchInDirectory",
       "a": "project_panel::NewFile",
       "A": "project_panel::NewDirectory",
       "r": "project_panel::Rename",
