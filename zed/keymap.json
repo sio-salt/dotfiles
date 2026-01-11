@@ -76,6 +76,8 @@
     "context": "menu || EmptyPane || SharedScreen || (Editor && vim_mode == normal)",
     "bindings": {
       "space e": "workspace::ToggleLeftDock",
+      "space w h": "workspace::ActivatePaneLeft",
+      "space w l": "workspace::ActivatePaneRight",
     },
   },
   {
