@@ -52,7 +52,7 @@
   },
   {
     // normal & visual (VimControl → normal || visual || operator)
-    "context": "Editor && VimControl && !menu",
+    "context": "Editor && (vim_mode == normal || vim_mode == visual) && !menu",
     "bindings": {
       "alt-j": "editor::MoveLineDown",
       "alt-k": "editor::MoveLineUp",
@@ -68,7 +68,7 @@
   {
     "context": "Editor && vim_mode == visual && !menu",
     "bindings": {
-      "ctrl-c": "editor::Copy",
+      "ctrl-c": ["workspace::SendKeystrokes", "\" + y"],
       "s a": "vim::PushAddSurrounds",
     },
   },

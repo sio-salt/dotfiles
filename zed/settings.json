@@ -7,7 +7,13 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "disable_ai": true,
+  "agent": {
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-5.2",
+    },
+    "model_parameters": [],
+  },
   "show_wrap_guides": false,
   "project_panel": {
     "hide_hidden": false,
@@ -52,8 +58,8 @@
         "settings": {
           "configurationPreference": "filesystemFirst",
           "lint": {
-            "select": ["ALL"],
-            "ignore": ["INP001", "D100", "T201"],
+            // "select": ["ALL"],
+            // "ignore": ["INP001", "D100", "D103", "T201", "ERA001", "N806"],
           },
         },
       },
