@@ -28,7 +28,6 @@
     // normal
     "context": "vim_mode == normal && !menu ",
     "bindings": {
-      "shift-y": ["workspace::SendKeystrokes", "y $"],
       "space w h": "workspace::ActivatePaneLeft",
       "space w j": "workspace::ActivatePaneDown",
       "space w k": "workspace::ActivatePaneUp",
@@ -40,6 +39,8 @@
       "space s c": "theme_selector::Toggle",
       "space s m": "vim::ToggleMarksView",
       "space s l": "vim::ShowLocation",
+      "shift-y": ["workspace::SendKeystrokes", "y $"],
+      "ctrl-j": "workspace::ToggleBottomDock",
       "ctrl-a": "editor::SelectAll",
       "ctrl-Left": "vim::ResizePaneLeft",
       "ctrl-Right": "vim::ResizePaneRight",

@@ -53,7 +53,7 @@
           "configurationPreference": "filesystemFirst",
           "lint": {
             "select": ["ALL"],
-            "ignore": ["INP001", "D100"],
+            "ignore": ["INP001", "D100", "T201"],
           },
         },
       },
