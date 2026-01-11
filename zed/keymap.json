@@ -13,9 +13,22 @@
     },
   },
   {
-    // normal
-    "context": "Editor && VimControl && vim_mode == normal && !menu ",
+    "context": "Editor",
     "bindings": {
+      "ctrl-s": "workspace::Save",
+    },
+  },
+  {
+    "context": "EmptyPane || SharedScreen",
+    "bindings": {
+      "space s f": "file_finder::Toggle",
+    },
+  },
+  {
+    // normal
+    "context": "vim_mode == normal && !menu ",
+    "bindings": {
+      "shift-y": ["workspace::SendKeystrokes", "y $"],
       "space w h": "workspace::ActivatePaneLeft",
       "space w j": "workspace::ActivatePaneDown",
       "space w k": "workspace::ActivatePaneUp",
@@ -24,20 +37,21 @@
       "space w s": "pane::SplitHorizontal",
       "space s f": "file_finder::Toggle",
       "space s g": "pane::DeploySearch",
+      "space s c": "theme_selector::Toggle",
       "space s m": "vim::ToggleMarksView",
       "space s l": "vim::ShowLocation",
-      "Ctrl-a": "editor::SelectAll",
-      "Ctrl-Left": "vim::ResizePaneLeft",
-      "Ctrl-Right": "vim::ResizePaneRight",
-      "Ctrl-Up": "vim::Increment",
-      "Ctrl-Down": "vim::Decrement",
+      "ctrl-a": "editor::SelectAll",
+      "ctrl-Left": "vim::ResizePaneLeft",
+      "ctrl-Right": "vim::ResizePaneRight",
+      "ctrl-Up": "vim::Increment",
+      "ctrl-Down": "vim::Decrement",
       "g h": "vim::StartOfLine",
       "g l": "vim::EndOfLine",
     },
   },
   {
-    // normal & visual
-    "context": "Editor && VimControl && (vim_mode == normal || vim_mode == visual) && !menu",
+    // normal & visual (VimControl → normal || visual || operator)
+    "context": "Editor && VimControl && !menu",
     "bindings": {
       "alt-j": "editor::MoveLineDown",
       "alt-k": "editor::MoveLineUp",
@@ -46,29 +60,25 @@
       "X": ["workspace::SendKeystrokes", "\" _ X"],
       "space p": ["workspace::SendKeystrokes", "\" 0 p"],
       "space P": ["workspace::SendKeystrokes", "\" 0 P"],
+      "s l": "vim::PushSneak",
+      "s h": "vim::PushSneakBackward",
     },
   },
   {
-    "context": "Editor && VimControl && vim_mode == visual && !menu ",
+    "context": "Editor && vim_mode == visual && !menu",
     "bindings": {
-      "Ctrl-C": ["workspace::SendKeystrokes", "\" + y"],
+      "ctrl-c": "editor::Copy",
+      "s a": "vim::PushAddSurrounds",
     },
   },
   {
-    // insert
-    "context": "Editor && vim_mode == insert",
-    "bindings": {
-      // "j k": "vim::NormalBefore"
-    },
-  },
-  {
-    "context": "menu || (Editor && VimControl && vim_mode == normal)",
+    "context": "menu || EmptyPane || SharedScreen || (Editor && vim_mode == normal)",
     "bindings": {
       "space e": "workspace::ToggleLeftDock",
     },
   },
   {
-    "context": "ProjectPanel",
+    "context": "ProjectPanel && !Editor",
     "bindings": {
       "H": [
         "action::Sequence",
@@ -82,6 +92,19 @@
       "a": "project_panel::NewFile",
       "A": "project_panel::NewDirectory",
       "r": "project_panel::Rename",
+    },
+  },
+  {
+    /* https://zed.dev/docs/vim */
+    "context": "vim_operator == a || vim_operator == i || vim_operator == cs",
+    "bindings": {
+      // Traditional Vim behavior
+      "q": "vim::AnyQuotes",
+      "b": "vim::AnyBrackets",
+
+      // mini.ai plugin behavior
+      "Q": "vim::MiniQuotes",
+      "B": "vim::MiniBrackets",
     },
   },
 ]

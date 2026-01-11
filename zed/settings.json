@@ -7,22 +7,66 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "disable_ai": true,
+  "show_wrap_guides": false,
   "project_panel": {
     "hide_hidden": false,
-    "hide_gitignore": false
+    "hide_gitignore": false,
   },
-  "relative_line_numbers": "enabled",
+  // "relative_line_numbers": "enabled",
   "icon_theme": "Material Icon Theme",
   "base_keymap": "VSCode",
   "vim_mode": true,
   "ui_font_size": 16,
   "buffer_font_size": 15,
   "theme": {
-    "mode": "system",
-    "light": "Kanagawa Wave",
-    "dark": "One Dark"
+    "mode": "dark",
+    "light": "Kanagawa Lotus",
+    "dark": "Kanagawa",
   },
   "features": {
-    "edit_prediction_provider": "copilot"
-  }
+    "edit_prediction_provider": "copilot",
+  },
+  "vim": {
+    /* https://zed.dev/docs/vim#changing-vim-mode-settings */
+    "use_system_clipboard": "never",
+    "use_smartcase_find": true,
+    "toggle_relative_line_numbers": true,
+    "highlight_on_yank_duration": 120,
+  },
+  "languages": {
+    "Python": {
+      "format_on_save": "on",
+      "language_servers": [
+        // Disable basedpyright and enable ty, and otherwise
+        // use the default configuration.
+        "ruff",
+        "ty",
+        "!basedpyright",
+      ],
+    },
+  },
+  "lsp": {
+    "ruff": {
+      "initialization_options": {
+        "settings": {
+          "configurationPreference": "filesystemFirst",
+          "lint": {
+            "select": ["ALL"],
+            "ignore": ["INP001", "D100"],
+          },
+        },
+      },
+    },
+    "ty": {
+      "settings": {
+        "configuration": {
+          "rules": {
+            "unused-ignore-comment": "warn",
+          },
+        },
+        "diagnosticMode": "workspace",
+      },
+    },
+  },
 }
