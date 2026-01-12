@@ -18,6 +18,7 @@ command -v ruff >/dev/null 2>&1 && eval "$(ruff generate-shell-completion $shell
 command -v jj >/dev/null 2>&1 && source <(jj util completion $shell)
 command -v rg >/dev/null 2>&1 && eval "$(rg --generate complete-$shell)"
 command -v fd >/dev/null 2>&1 && eval "$(fd --gen-completions $shell)"
+command -v npm >/dev/null 2>&1 && eval "$(npm completion)"
 
 command -v molgeom >/dev/null 2>&1 && eval "$(_MOLGEOM_COMPLETE=${shell}_source molgeom)"
 # ---------------------

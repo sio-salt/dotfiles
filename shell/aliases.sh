@@ -22,7 +22,7 @@ alias upupupupupup='z ../../../../../.. ; ls'
 alias nv='nvim'
 
 function zl() {
-    z $1
+    z "$@"
     ls
 }
 
