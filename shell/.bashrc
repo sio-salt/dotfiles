@@ -99,8 +99,8 @@ fi
 # User specific aliases and functions
 # -------------------------------------
 
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:$HOME/.venv/bin:" ]]; then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:$HOME/.venv/bin:$HOME/.npm-global/bin" ]]; then
+    PATH="$HOME/.local/bin:$HOME/bin:$HOME/.venv/bin:$PATH:$HOME/.npm-global/bin"
 fi
 export PATH
 
