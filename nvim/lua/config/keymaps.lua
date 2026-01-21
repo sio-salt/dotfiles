@@ -81,7 +81,7 @@ vim.keymap.set({ 'n', 'v' }, '<C-a>', 'ggVG', { desc = 'select all' })
 --   { desc = '[T]oggle [A]uto [S]uggestion' }
 -- )
 
-vim.keymap.set({ 'n', 'v' }, '<leader>m', '%', { desc = '[J]ump to [M]atching braces' })
+vim.keymap.set({ 'n', 'v' }, '<leader>m', '%', { remap = true, desc = '[J]ump to [M]atching braces' })
 
 -- vim.keymap.set(
 --     { 'n', 'v' },

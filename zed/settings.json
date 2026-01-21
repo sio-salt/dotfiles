@@ -7,11 +7,14 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "edit_predictions": {
+    "mode": "eager",
+  },
   "buffer_font_family": "FiraCode Nerd Font Mono",
   "agent": {
     "default_model": {
       "provider": "copilot_chat",
-      "model": "gpt-5.2",
+      "model": "gpt-5.1-codex",
     },
     "model_parameters": [],
   },
@@ -20,21 +23,15 @@
     "hide_hidden": false,
     "hide_gitignore": false,
   },
-  // "relative_line_numbers": "enabled",
   "icon_theme": "Material Icon Theme",
   "base_keymap": "VSCode",
   "vim_mode": true,
   "ui_font_size": 16,
   "buffer_font_size": 15,
-  // "diagnostics": {
-  //   "inline": {
-  //     "enabled": true,
-  //   },
-  // },
   "theme": {
     "mode": "dark",
     "light": "Kanagawa Lotus",
-    "dark": "Kanagawa",
+    "dark": "Catppuccin Mocha",
   },
   "features": {
     "edit_prediction_provider": "copilot",
@@ -64,6 +61,7 @@
         "settings": {
           "configurationPreference": "filesystemFirst",
           "lint": {
+            // may be this was too strict
             // "select": ["ALL"],
             // "ignore": ["INP001", "D100", "D103", "T201", "ERA001", "N806"],
           },
