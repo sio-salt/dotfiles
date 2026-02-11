@@ -57,7 +57,7 @@
     "bindings": {
       "alt-j": "editor::MoveLineDown",
       "alt-k": "editor::MoveLineUp",
-      "space m": "vim::Matching",
+      "space m": ["workspace::SendKeystrokes", "%"],
       "x": ["workspace::SendKeystrokes", "\" _ x"],
       "X": ["workspace::SendKeystrokes", "\" _ X"],
       "space p": ["workspace::SendKeystrokes", "\" 0 p"],

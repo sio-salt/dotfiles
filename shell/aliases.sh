@@ -23,6 +23,7 @@ alias nv='nvim'
 alias 10back='source $HOME/00.repos/c.cli-tools/backcd.bash/backcd.bash'
 alias python="uv run python"
 alias py="python"
+alias pip="uv pip"
 alias Open="xdg-open"
 
 function zl() {
@@ -224,4 +225,10 @@ if uname -r | grep -iq microsoft; then
     alias cdx=cdexplorer
     alias clx=clexplorer
     alias Chemcraft="/mnt/c/Chemcraft/Chemcraft.exe"
+fi
+# -------------------------------------
+# Fedora aliases
+# -------------------------------------
+if [ -f /etc/fedora-release ]; then
+    alias clip="xsel --input --clipboard"
 fi
