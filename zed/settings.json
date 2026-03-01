@@ -8,13 +8,14 @@
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
   "edit_predictions": {
+    "provider": "copilot",
     "mode": "eager",
   },
   "buffer_font_family": "FiraCode Nerd Font Mono",
   "agent": {
     "default_model": {
       "provider": "copilot_chat",
-      "model": "gpt-5.1-codex",
+      "model": "gpt-5.3-codex",
     },
     "model_parameters": [],
   },
@@ -31,10 +32,7 @@
   "theme": {
     "mode": "dark",
     "light": "Kanagawa Lotus",
-    "dark": "Kanagawa Wave",
-  },
-  "features": {
-    "edit_prediction_provider": "copilot",
+    "dark": "Gruvbox Dark",
   },
   "vim": {
     /* https://zed.dev/docs/vim#changing-vim-mode-settings */
@@ -47,11 +45,9 @@
     "Python": {
       "format_on_save": "on",
       "language_servers": [
-        // Disable basedpyright and enable ty, and otherwise
-        // use the default configuration.
         "ruff",
-        "ty",
-        "!basedpyright",
+        // "ty",
+        "basedpyright",
       ],
     },
   },
