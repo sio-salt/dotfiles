@@ -99,9 +99,20 @@ fi
 # User specific aliases and functions
 # -------------------------------------
 
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:$HOME/.venv/bin:" ]]; then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
-fi
+path_candidates=(
+    "$HOME/.local/bin"
+    "$HOME/bin"
+    "$HOME/.venv/bin"
+    "$HOME/.npm-global/bin"
+)
+
+for dir in "${path_candidates[@]}"; do
+    # Add only if the directory exists and is not already in PATH
+    if [[ -d "$dir" && ":$PATH:" != *":$dir:"* ]]; then
+        PATH="$dir:$PATH"
+    fi
+done
+
 export PATH
 
 if [ -f "$HOME/00.repos/dotfiles/shell/aliases.sh" ]; then
