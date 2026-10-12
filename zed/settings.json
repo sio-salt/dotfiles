@@ -7,6 +7,11 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "agent_servers": {
+    "codex-acp": {
+      "type": "registry"
+    }
+  },
   "edit_predictions": {
     "provider": "copilot",
     "mode": "eager",
@@ -31,8 +36,8 @@
   "buffer_font_size": 15,
   "theme": {
     "mode": "dark",
-    "light": "Kanagawa Lotus",
-    "dark": "Gruvbox Dark",
+    "light": "Catppuccin Mocha",
+    "dark": "Catppuccin Mocha",
   },
   "vim": {
     /* https://zed.dev/docs/vim#changing-vim-mode-settings */
