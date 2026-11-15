@@ -7,6 +7,15 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  "git_panel": {
+    "dock": "left"
+  },
   "agent_servers": {
     "codex-acp": {
       "type": "registry"
@@ -18,6 +27,7 @@
   },
   "buffer_font_family": "FiraCode Nerd Font Mono",
   "agent": {
+    "dock": "right",
     "default_model": {
       "provider": "copilot_chat",
       "model": "gpt-5.3-codex",
@@ -26,6 +36,7 @@
   },
   "show_wrap_guides": false,
   "project_panel": {
+    "dock": "left",
     "hide_hidden": false,
     "hide_gitignore": false,
   },
@@ -36,7 +47,7 @@
   "buffer_font_size": 15,
   "theme": {
     "mode": "dark",
-    "light": "Catppuccin Mocha",
+    "light": "Kanagawa Lotus",
     "dark": "Catppuccin Mocha",
   },
   "vim": {

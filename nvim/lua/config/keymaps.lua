@@ -62,6 +62,8 @@ end, { noremap = true, silent = true, desc = 'Run current file' })
 
 vim.keymap.set('v', '<C-c>', '"+y')
 
+vim.keymap.set({ 'n', 'v' }, 'gl', '$')
+vim.keymap.set({ 'n', 'v' }, 'gh', '0')
 vim.keymap.set({ 'n', 'v' }, 'x', '"_x')
 vim.keymap.set({ 'n', 'v' }, '<leader>p', '"0p')
 vim.keymap.set({ 'n', 'v' }, '<leader>P', '"0P')
